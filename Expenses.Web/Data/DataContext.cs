@@ -14,5 +14,15 @@ namespace Expenses.Web.Data
         {
 
         }
+        public DbSet<CitiesEntity> Cities { get; set; }
+        public DbSet<CountriesEntity> Countries { get; set; }
+        public DbSet<ExpensesTypeEntity> ExpensesTypes { get; set; }
+        public DbSet<UserEntity> users { get; set; }
+        public DbSet<TripDetailsEntity> TripDetails { get; set; }
+        public DbSet<TripsEntity> Trips { get; set; }
+        
+        
+        
+
     }
 }
