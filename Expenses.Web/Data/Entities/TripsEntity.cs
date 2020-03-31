@@ -8,8 +8,6 @@ namespace Expenses.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public ExpensesTypeEntity ExpensesType { get; set; }
-
         [DataType(DataType.DateTime)]
         [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
