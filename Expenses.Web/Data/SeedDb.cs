@@ -1,4 +1,4 @@
-﻿using Expenses.Web.Data.Entitis;
+﻿using Expenses.Web.Data.Entities;
 using Expenses.Web.Helper;
 using Soccer.Common.Enums;
 using System;
@@ -36,7 +36,7 @@ namespace Expenses.Web.Data
         private async Task CheckRolesAsync()
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
-            await _userHelper.CheckRoleAsync(UserType.User.ToString()); await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
+            await _userHelper.CheckRoleAsync(UserType.User.ToString()); 
         }
 
         private async Task CheckExpensesTypeAsync()

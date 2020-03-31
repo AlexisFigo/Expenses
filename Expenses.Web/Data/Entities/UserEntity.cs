@@ -2,7 +2,7 @@
 using Soccer.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Expenses.Web.Data.Entitis
+namespace Expenses.Web.Data.Entities
 {
     public class UserEntity : IdentityUser
     {

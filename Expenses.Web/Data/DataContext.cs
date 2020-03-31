@@ -1,4 +1,4 @@
-﻿using Expenses.Web.Data.Entitis;
+﻿using Expenses.Web.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;

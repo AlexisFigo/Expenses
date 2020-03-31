@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Expenses.Web.Data.Entitis
+namespace Expenses.Web.Data.Entities
 {
-    public class CountriesEntity
+    public class CitiesEntity
     {
         public string Id { get; set; }
 
@@ -11,6 +10,6 @@ namespace Expenses.Web.Data.Entitis
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Name { get; set; }
 
-        public ICollection<CitiesEntity> Cities { get; set; }
+        public CountriesEntity Countrie { get; set; }
     }
 }

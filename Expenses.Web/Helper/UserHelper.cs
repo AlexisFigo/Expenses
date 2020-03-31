@@ -1,43 +1,56 @@
-﻿using Expenses.Web.Data.Entitis;
+﻿using Expenses.Web.Data.Entities;
 using Expenses.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Expenses.Web.Helper
 {
     public class UserHelper : IUserHelper
     {
-        public Task<IdentityResult> AddUserAsync(UserEntity user, string password)
+        private readonly UserManager<UserEntity> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public UserHelper(UserManager<UserEntity> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
-            return null;
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+        public async Task<IdentityResult> AddUserAsync(UserEntity user, string password)
+        {
+            return await _userManager.CreateAsync(user, password);
         }
 
-        public Task AddUserToRoleAsync(UserEntity user, string roleName)
+        public async Task AddUserToRoleAsync(UserEntity user, string roleName)
         {
-            return null;
+            await _userManager.AddToRoleAsync(user, roleName);
         }
 
-        public Task CheckRoleAsync(string roleName)
+        public async Task CheckRoleAsync(string roleName)
         {
-            return null;
+            var roleExists = await _roleManager.RoleExistsAsync(roleName);
+            if (!roleExists)
+            {
+                await _roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = roleName
+                });
+            }
         }
 
-        public Task<UserEntity> GetUserByEmailAsync(string email)
+        public async Task<UserEntity> GetUserByEmailAsync(string email)
         {
-            return null;
+            return await _userManager.FindByEmailAsync(email);
         }
 
-        public Task<UserEntity> GetUserByName(string email)
+        public async Task<UserEntity> GetUserByName(string name)
         {
-            return null;
+            return await _userManager.FindByNameAsync(name);
         }
 
-        public Task<bool> IsUserInRoleAsync(UserEntity user, string roleName)
+        public async Task<bool> IsUserInRoleAsync(UserEntity user, string roleName)
         {
-            throw new NotImplementedException();
+            return await _userManager.IsInRoleAsync(user, roleName);
         }
 
         public Task<SignInResult> LoginAsync(LoginViewModel model)
