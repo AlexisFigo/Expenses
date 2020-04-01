@@ -30,5 +30,7 @@ namespace Expenses.Web.Data.Entities
         public CitiesEntity Citie { get; set; }
 
         public ICollection<TripDetailsEntity> TripDetails { get; set; }
+
+        public UserEntity User { get; set; }
     }
 }

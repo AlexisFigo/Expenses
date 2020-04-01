@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Soccer.Common.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Expenses.Web.Data.Entities
@@ -21,6 +22,8 @@ namespace Expenses.Web.Data.Entities
 
         [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";
+
+        public ICollection<TripsEntity> Trips { get; set; }
 
     }
 }

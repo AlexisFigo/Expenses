@@ -76,7 +76,7 @@ namespace Expenses.Web.Data
                     },
                     new CitiesEntity
                     {
-                        Name = "Calir"
+                        Name = "Cali"
                     }
                 });
 
@@ -159,7 +159,7 @@ namespace Expenses.Web.Data
             }
         }
 
-        private void AddTrip(UserEntity user)
+        private async void AddTrip(UserEntity user)
         {
             DateTime startDate = DateTime.Today.AddMonths(2).ToUniversalTime();
             DateTime endDate = DateTime.Today.AddMonths(3).ToUniversalTime();
@@ -168,6 +168,7 @@ namespace Expenses.Web.Data
             {
                 StartDate = startDate,
                 EndDate = endDate,
+                User = user,
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Bogota"),
                 TripDetails = new List<TripDetailsEntity>
                  {
@@ -189,7 +190,96 @@ namespace Expenses.Web.Data
             {
                 StartDate = startDate,
                 EndDate = endDate,
+                User = user,
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Medellin"),
+                TripDetails = new List<TripDetailsEntity>
+                 {
+                    new TripDetailsEntity
+                    {
+                        Date = startDate.AddDays(1),
+                        ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Food"),
+                        Cost = 125
+                    },
+                     new TripDetailsEntity
+                    {
+                        Date = startDate.AddDays(1),
+                        ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Taxi"),
+                        Cost = 12
+                    },
+                },
+            });
+            _context.Trips.Add(new TripsEntity
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                User = user,
+                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Barcelona"),
+                TripDetails = new List<TripDetailsEntity>
+                {
+                    new TripDetailsEntity
+                    {
+                         Date = startDate.AddDays(1),
+                         ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Food"),
+                         Cost = 125
+                    },
+                    new TripDetailsEntity
+                    {
+                        Date = startDate.AddDays(1),
+                        ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Taxi"),
+                        Cost = 12
+                    },
+                },
+            });
+            _context.Trips.Add(new TripsEntity
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                User = user,
+                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Madrid"),
+                TripDetails = new List<TripDetailsEntity>
+                {
+                    new TripDetailsEntity
+                    {
+                         Date = startDate.AddDays(1),
+                         ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Food"),
+                         Cost = 125
+                    },
+                    new TripDetailsEntity
+                    {
+                        Date = startDate.AddDays(1),
+                        ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Taxi"),
+                        Cost = 12
+                    },
+                },
+            });
+            _context.Trips.Add(new TripsEntity
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                User = user,
+                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Mendoza"),
+                TripDetails = new List<TripDetailsEntity>
+                {
+                    new TripDetailsEntity
+                    {
+                         Date = startDate.AddDays(1),
+                         ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Food"),
+                         Cost = 125
+                    },
+                    new TripDetailsEntity
+                    {
+                        Date = startDate.AddDays(1),
+                        ExpensesType = _context.ExpensesTypes.FirstOrDefault(e => e.Name == "Taxi"),
+                        Cost = 12
+                    },
+                },
+            });
+            _context.Trips.Add(new TripsEntity
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                User = user,
+                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Rosario"),
                 TripDetails = new List<TripDetailsEntity>
                 {
                     new TripDetailsEntity
