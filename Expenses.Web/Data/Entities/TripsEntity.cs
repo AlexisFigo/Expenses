@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -33,5 +34,7 @@ namespace Expenses.Web.Data.Entities
         public ICollection<TripDetailsEntity> TripDetails { get; set; }
 
         public UserEntity User { get; set; }
+
+        public decimal Total => TripDetails.Sum(td => td.Cost);
     }
 }
