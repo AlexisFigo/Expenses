@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Expenses.Prism\Expenses.Prism.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{434050D2-3344-438C-AAA1-9FEDB2D5FA7C}</Project>
       <Name>Expenses.Prism</Name>
     </ProjectReference>
   </ItemGroup>

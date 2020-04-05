@@ -21,8 +21,5 @@ namespace Expenses.Web.Data
         public DbSet<TripDetailsEntity> TripDetails { get; set; }
         public DbSet<TripsEntity> Trips { get; set; }
         
-        
-        
-
     }
 }
