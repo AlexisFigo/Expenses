@@ -16,8 +16,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Expenses.Common\Expenses.Common.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Trips\" />
-  </ItemGroup>
 </Project>

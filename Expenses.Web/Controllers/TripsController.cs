@@ -16,17 +16,13 @@ namespace Expenses.Web.Controllers
         {
             _context = context;
         }
-        public  IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<TripsEntity> listTrip = _context.Trips;
-                //.Include(t => t.TripDetails)
-                //.Include(t => t.Citie)
-                //.Include(t => t.User);
-            if (listTrip == null)
-            {
-                return NotFound();
-            }
-            return View(listTrip);
+            return View(await _context.Trips
+                .Include(t => t.TripDetails)
+                .Include(t => t.Citie)
+                .Include(t => t.User)
+                .ToListAsync());
         }
     }
 }
