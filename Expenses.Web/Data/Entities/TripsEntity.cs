@@ -27,6 +27,7 @@ namespace Expenses.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime EndDateLocal => EndDate.ToLocalTime();
 
+        public string Description { get; set; }
         public CitiesEntity Citie { get; set; }
 
         public ICollection<TripDetailsEntity> TripDetails { get; set; }

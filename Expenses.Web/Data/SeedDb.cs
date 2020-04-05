@@ -169,6 +169,7 @@ namespace Expenses.Web.Data
                 StartDate = startDate,
                 EndDate = endDate,
                 User = user,
+                Description = "Viaje de negocios",
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Bogota"),
                 TripDetails = new List<TripDetailsEntity>
                  {
@@ -191,6 +192,7 @@ namespace Expenses.Web.Data
                 StartDate = startDate,
                 EndDate = endDate,
                 User = user,
+                Description = "Viaje de negocios",
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Medellin"),
                 TripDetails = new List<TripDetailsEntity>
                  {
@@ -213,6 +215,7 @@ namespace Expenses.Web.Data
                 StartDate = startDate,
                 EndDate = endDate,
                 User = user,
+                Description = "Viaje de charla con clientes",
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Barcelona"),
                 TripDetails = new List<TripDetailsEntity>
                 {
@@ -235,6 +238,7 @@ namespace Expenses.Web.Data
                 StartDate = startDate,
                 EndDate = endDate,
                 User = user,
+                Description = "Viaje de charla con clientes",
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Madrid"),
                 TripDetails = new List<TripDetailsEntity>
                 {
@@ -257,6 +261,7 @@ namespace Expenses.Web.Data
                 StartDate = startDate,
                 EndDate = endDate,
                 User = user,
+                Description = "Viaje de charla con clientes",
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Mendoza"),
                 TripDetails = new List<TripDetailsEntity>
                 {
@@ -279,6 +284,7 @@ namespace Expenses.Web.Data
                 StartDate = startDate,
                 EndDate = endDate,
                 User = user,
+                Description = "Viaje de curso",
                 Citie = _context.Cities.FirstOrDefault(c => c.Name == "Rosario"),
                 TripDetails = new List<TripDetailsEntity>
                 {
