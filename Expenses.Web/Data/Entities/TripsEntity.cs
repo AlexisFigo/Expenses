@@ -29,7 +29,7 @@ namespace Expenses.Web.Data.Entities
         public DateTime EndDateLocal => EndDate.ToLocalTime();
 
         public string Description { get; set; }
-        public CitiesEntity Citie { get; set; }
+        public CitiesEntity City { get; set; }
 
         public ICollection<TripDetailsEntity> TripDetails { get; set; }
 

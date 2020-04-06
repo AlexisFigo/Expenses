@@ -20,7 +20,7 @@ namespace Expenses.Web.Controllers
         {
             return View(await _context.Trips
                 .Include(t => t.TripDetails)
-                .Include(t => t.Citie)
+                .Include(t => t.City)
                 .Include(t => t.User)
                 .ToListAsync());
         }
@@ -34,7 +34,7 @@ namespace Expenses.Web.Controllers
 
             var details = await _context.TripDetails
                 .Include(td => td.ExpensesType)
-                .Where(td => td.trip.Id == id)
+                .Where(td => td.Trip.Id == id)
                 .ToListAsync();
             if (details == null)
             {

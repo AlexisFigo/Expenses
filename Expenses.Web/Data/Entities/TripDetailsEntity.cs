@@ -24,6 +24,6 @@ namespace Expenses.Web.Data.Entities
         [Display(Name = "Voucher")]
         public string VoucherPath { get; set; }
 
-        public TripsEntity trip { get; set; }
+        public TripsEntity Trip { get; set; }
     }
 }

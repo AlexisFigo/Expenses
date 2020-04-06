@@ -170,7 +170,7 @@ namespace Expenses.Web.Data
                 EndDate = endDate,
                 User = user,
                 Description = "Viaje de negocios",
-                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Bogota"),
+                City = _context.Cities.FirstOrDefault(c => c.Name == "Bogota"),
                 TripDetails = new List<TripDetailsEntity>
                  {
                     new TripDetailsEntity
@@ -193,7 +193,7 @@ namespace Expenses.Web.Data
                 EndDate = endDate,
                 User = user,
                 Description = "Viaje de negocios",
-                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Medellin"),
+                City = _context.Cities.FirstOrDefault(c => c.Name == "Medellin"),
                 TripDetails = new List<TripDetailsEntity>
                  {
                     new TripDetailsEntity
@@ -216,7 +216,7 @@ namespace Expenses.Web.Data
                 EndDate = endDate,
                 User = user,
                 Description = "Viaje de charla con clientes",
-                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Barcelona"),
+                City = _context.Cities.FirstOrDefault(c => c.Name == "Barcelona"),
                 TripDetails = new List<TripDetailsEntity>
                 {
                     new TripDetailsEntity
@@ -239,7 +239,7 @@ namespace Expenses.Web.Data
                 EndDate = endDate,
                 User = user,
                 Description = "Viaje de charla con clientes",
-                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Madrid"),
+                City = _context.Cities.FirstOrDefault(c => c.Name == "Madrid"),
                 TripDetails = new List<TripDetailsEntity>
                 {
                     new TripDetailsEntity
@@ -262,7 +262,7 @@ namespace Expenses.Web.Data
                 EndDate = endDate,
                 User = user,
                 Description = "Viaje de charla con clientes",
-                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Mendoza"),
+                City = _context.Cities.FirstOrDefault(c => c.Name == "Mendoza"),
                 TripDetails = new List<TripDetailsEntity>
                 {
                     new TripDetailsEntity
@@ -285,7 +285,7 @@ namespace Expenses.Web.Data
                 EndDate = endDate,
                 User = user,
                 Description = "Viaje de curso",
-                Citie = _context.Cities.FirstOrDefault(c => c.Name == "Rosario"),
+                City = _context.Cities.FirstOrDefault(c => c.Name == "Rosario"),
                 TripDetails = new List<TripDetailsEntity>
                 {
                     new TripDetailsEntity
