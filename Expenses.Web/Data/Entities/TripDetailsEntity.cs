@@ -6,13 +6,14 @@ namespace Expenses.Web.Data.Entities
     public class TripDetailsEntity
     {
         public int Id { get; set; }
-
+        [Display(Name = "Expenses type")]
         public ExpensesTypeEntity ExpensesType { get; set; }
 
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = false)]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Date local")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = false)]
         public DateTime DateLocal => Date.ToLocalTime();
