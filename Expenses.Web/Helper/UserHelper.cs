@@ -10,10 +10,13 @@ namespace Expenses.Web.Helper
     {
         private readonly UserManager<UserEntity> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<UserEntity> _signInManager;
         public UserHelper(UserManager<UserEntity> userManager,
+            SignInManager<UserEntity> signInManager,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _roleManager = roleManager;
         }
         public async Task<IdentityResult> AddUserAsync(UserEntity user, string password)
@@ -53,14 +56,18 @@ namespace Expenses.Web.Helper
             return await _userManager.IsInRoleAsync(user, roleName);
         }
 
-        public Task<SignInResult> LoginAsync(LoginViewModel model)
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            throw new NotImplementedException();
+            return await _signInManager.PasswordSignInAsync(
+                model.Username,
+                model.Password,
+                model.RememberMe,
+                false);
         }
 
-        public Task LogoutAsync()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
         }
     }
 }
