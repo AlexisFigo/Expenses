@@ -1,7 +1,8 @@
 ﻿using Expenses.Web.Data.Entities;
 using Expenses.Web.Models;
+using Expenses.Web.Data;
 using Microsoft.AspNetCore.Identity;
-using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Expenses.Web.Helper
@@ -11,13 +12,25 @@ namespace Expenses.Web.Helper
         private readonly UserManager<UserEntity> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<UserEntity> _signInManager;
+        private readonly DataContext _context;
         public UserHelper(UserManager<UserEntity> userManager,
             SignInManager<UserEntity> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            DataContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _context = context;
+        }
+
+        public async Task<UserEntity> GetUserAsync(string email)
+        {
+            return await _context.Users.FindAsync(email);
+        }
+        public async Task<SignInResult> ValidatePasswordAsync(UserEntity user, string password)
+        {
+            return await _signInManager.CheckPasswordSignInAsync(user, password, false);
         }
         public async Task<IdentityResult> AddUserAsync(UserEntity user, string password)
         {
