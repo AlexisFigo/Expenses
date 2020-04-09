@@ -26,7 +26,12 @@ namespace Expenses.Web.Helper
 
         public async Task<UserEntity> GetUserAsync(string email)
         {
-            return await _context.Users.FindAsync(email);
+            var query = from u in _context.users
+                        where u.Email == email
+                        select u;
+
+            return query.FirstOrDefault();
+
         }
         public async Task<SignInResult> ValidatePasswordAsync(UserEntity user, string password)
         {
