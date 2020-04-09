@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Expenses.Web.Helper;
+using Expenses.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expenses.Web.Controllers

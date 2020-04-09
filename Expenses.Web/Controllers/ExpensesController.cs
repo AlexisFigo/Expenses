@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Expenses.Web.Data;
+using Expenses.Web.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Expenses.Web.Data;
-using Expenses.Web.Data.Entities;
 
 namespace Expenses.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ExpensesController : Controller
     {
         private readonly DataContext _context;
@@ -47,7 +46,7 @@ namespace Expenses.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-       
+
 
         // GET: Expenses/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -57,7 +56,7 @@ namespace Expenses.Web.Controllers
                 return NotFound();
             }
 
-            var expensesTypeEntity = await _context.ExpensesTypes
+            ExpensesTypeEntity expensesTypeEntity = await _context.ExpensesTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (expensesTypeEntity == null)
             {

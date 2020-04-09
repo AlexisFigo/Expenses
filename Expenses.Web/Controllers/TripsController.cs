@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Expenses.Web.Data;
+using Expenses.Web.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Expenses.Web.Data;
-using Expenses.Web.Data.Entities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Expenses.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TripsController : Controller
     {
         private readonly DataContext _context;
@@ -32,7 +33,7 @@ namespace Expenses.Web.Controllers
                 return NotFound();
             }
 
-            var details = await _context.TripDetails
+            List<TripDetailsEntity> details = await _context.TripDetails
                 .Include(td => td.ExpensesType)
                 .Where(td => td.Trip.Id == id)
                 .ToListAsync();
