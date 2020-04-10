@@ -4,6 +4,8 @@ using Expenses.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
+using Soccer.Web.Models;
+using Soccer.Common.Enums;
 
 namespace Expenses.Web.Helper
 {
@@ -22,6 +24,29 @@ namespace Expenses.Web.Helper
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
+        }
+
+        public async Task<UserEntity> AddUserAsync(AddUserViewModel model, string path, UserType userType)
+        {
+            UserEntity userEntity = new UserEntity
+            {
+              
+                Email = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.Username,
+                UserType = userType
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(userEntity, model.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            UserEntity newUser = await GetUserAsync(model.Username);
+            await AddUserToRoleAsync(newUser, userEntity.UserType.ToString());
+            return newUser;
         }
 
         public async Task<UserEntity> GetUserAsync(string email)

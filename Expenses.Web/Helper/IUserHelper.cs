@@ -1,6 +1,8 @@
 ﻿using Expenses.Web.Data.Entities;
 using Expenses.Web.Models;
 using Microsoft.AspNetCore.Identity;
+using Soccer.Common.Enums;
+using Soccer.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace Expenses.Web.Helper
 {
     public interface IUserHelper
     {
+        Task<UserEntity> AddUserAsync(AddUserViewModel model, string path, UserType userType);
+
         Task<UserEntity> GetUserAsync(string email);
 
         Task<SignInResult> ValidatePasswordAsync(UserEntity user, string password);
