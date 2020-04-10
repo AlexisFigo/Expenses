@@ -16,4 +16,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Expenses.Common\Expenses.Common.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Vouchers\" />
+  </ItemGroup>
 </Project>
