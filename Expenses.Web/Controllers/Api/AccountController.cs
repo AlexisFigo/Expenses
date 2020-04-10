@@ -94,6 +94,89 @@ namespace Expenses.Web.Controllers.Api
             });
         }
 
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut]
+        [Route("EditUser")]
+        public async Task<IActionResult> EditUser([FromBody] UserRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
+            //Resource.Culture = cultureInfo;
+
+            UserEntity userEntity = await _userHelper.GetUserAsync(request.Email);
+            if (userEntity == null)
+            {
+                return BadRequest("usuario no existe");//BadRequest(Resource.UserDoesntExists);
+            }
+
+
+            userEntity.FirstName = request.FirstName;
+            userEntity.LastName = request.LastName;
+
+            IdentityResult respose = await _userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+
+            return Ok(new Response
+            {
+                IsSuccess = true,
+                Message = "se realizaron los cambio" //Resource.RecoverPasswordMessage
+            }); ;
+        }
+
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
+            //Resource.Culture = cultureInfo;
+
+            UserEntity user = await _userHelper.GetUserAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "el usuario no existe"//Resource.UserDoesntExists
+                });
+            }
+
+            IdentityResult result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                string message = result.Errors.FirstOrDefault().Description;
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "clave incorrecta"//message.Contains("password") ? Resource.IncorrectCurrentPassword : message
+                });
+            }
+
+            return Ok(new Response
+            {
+                IsSuccess = true,
+                Message = "cambio exitoso"//Resource.PasswordChangedSuccess
+            });
+        }
+
+
         [HttpPost]
         [Route("RecoverPassword")]
         public async Task<IActionResult> RecoverPassword([FromBody] RecoverPasswordRequest request)

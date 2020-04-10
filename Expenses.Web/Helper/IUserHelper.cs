@@ -12,6 +12,10 @@ namespace Expenses.Web.Helper
 {
     public interface IUserHelper
     {
+        Task<IdentityResult> ChangePasswordAsync(UserEntity user, string oldPassword, string newPassword);
+
+        Task<IdentityResult> UpdateUserAsync(UserEntity user);
+
         Task<string> GeneratePasswordResetTokenAsync(UserEntity user);
 
         Task<UserEntity> AddUserAsync(AddUserViewModel model, string path, UserType userType);

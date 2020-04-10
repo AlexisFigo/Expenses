@@ -26,6 +26,16 @@ namespace Expenses.Web.Helper
             _context = context;
         }
 
+        public async Task<IdentityResult> ChangePasswordAsync(UserEntity user, string oldPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(UserEntity user)
+        {
+            return await _userManager.UpdateAsync(user);
+        }
+
         public async Task<string> GeneratePasswordResetTokenAsync(UserEntity user)
         {
             return await _userManager.GeneratePasswordResetTokenAsync(user);
