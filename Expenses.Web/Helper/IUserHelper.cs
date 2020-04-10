@@ -12,6 +12,8 @@ namespace Expenses.Web.Helper
 {
     public interface IUserHelper
     {
+        Task<string> GeneratePasswordResetTokenAsync(UserEntity user);
+
         Task<UserEntity> AddUserAsync(AddUserViewModel model, string path, UserType userType);
 
         Task<UserEntity> GetUserAsync(string email);

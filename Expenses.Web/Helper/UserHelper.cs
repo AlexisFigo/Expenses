@@ -26,6 +26,11 @@ namespace Expenses.Web.Helper
             _context = context;
         }
 
+        public async Task<string> GeneratePasswordResetTokenAsync(UserEntity user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
         public async Task<UserEntity> AddUserAsync(AddUserViewModel model, string path, UserType userType)
         {
             UserEntity userEntity = new UserEntity
