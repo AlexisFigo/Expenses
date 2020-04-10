@@ -1,17 +1,24 @@
 ﻿using Expenses.Web.Data.Entities;
 using Expenses.Web.Models;
 using Microsoft.AspNetCore.Identity;
-using Soccer.Common.Enums;
+using Expenses.Common.Enums;
 using Soccer.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Expenses.Web.Helper
+namespace Expenses.Web.Helpers
 {
     public interface IUserHelper
     {
+        Task<IdentityResult> ResetPasswordAsync(UserEntity user, string token, string password);
+        Task<UserEntity> GetUserAsync(Guid userId);
+
+        Task<string> GenerateEmailConfirmationTokenAsync(UserEntity user);
+
+        Task<IdentityResult> ConfirmEmailAsync(UserEntity user, string token);
+
         Task<IdentityResult> ChangePasswordAsync(UserEntity user, string oldPassword, string newPassword);
 
         Task<IdentityResult> UpdateUserAsync(UserEntity user);

@@ -1,6 +1,6 @@
 ﻿using Expenses.Web.Data.Entities;
-using Expenses.Web.Helper;
-using Soccer.Common.Enums;
+using Expenses.Web.Helpers;
+using Expenses.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

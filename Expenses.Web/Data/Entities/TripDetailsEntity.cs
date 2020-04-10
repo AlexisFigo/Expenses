@@ -24,6 +24,11 @@ namespace Expenses.Web.Data.Entities
         [Display(Name = "Voucher")]
         public string VoucherPath { get; set; }
 
+        [Display(Name = "Voucher")]
+        public string VoucherFullPath => string.IsNullOrEmpty(VoucherPath)
+            ? "https://SoccerWeb4.azurewebsites.net//images/noimage.png"
+            : $"https://SoccerWeb4.azurewebsites.net{VoucherPath.Substring(1)}";
+
         public TripsEntity Trip { get; set; }
     }
 }

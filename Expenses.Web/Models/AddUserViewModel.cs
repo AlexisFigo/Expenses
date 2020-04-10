@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Soccer.Common.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Soccer.Web.Models
 {

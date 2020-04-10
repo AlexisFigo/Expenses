@@ -1,11 +1,11 @@
 ﻿
-using Expenses.Common.Model;
+using Expenses.Common.Models;
 using Expenses.Web.Data;
 using Expenses.Web.Data.Entities;
-using Expenses.Web.Helper;
+using Expenses.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Soccer.Common.Models;
+using Expenses.Common.Models;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,13 +19,17 @@ namespace Expenses.Web.Controllers.Api
         private readonly DataContext _dataContext;
         private readonly ImageHelper _imageHelper;
         private readonly IUserHelper _userHelper;
+        private readonly IConverterHelper _converterHelper;
 
         public TripController(
-            DataContext dataContext)
+            DataContext dataContext,
+            IConverterHelper converterHelper,
+            IUserHelper userHelper)
         {
             _dataContext = dataContext;
+            _converterHelper = converterHelper;
             //_imageHelper = imageHelper;
-            //_userHelper = userHelper;
+            _userHelper = userHelper;
         }
 
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -47,14 +51,107 @@ namespace Expenses.Web.Controllers.Api
             //Resource.Culture = cultureInfo;
 
             List<TripsEntity> trips = await _dataContext.Trips
-                .Include(t => t.User)
                 .Include(t => t.City)
                 .Include(t => t.TripDetails)
                 .ThenInclude(td => td.ExpensesType)
                 .Where(t => t.User.Id == modelRequest.Id)
                 .ToListAsync();
 
-            return Ok(trips);
+            return Ok(_converterHelper.ToTripResponse(trips));
         }
+
+        [HttpPost]
+        [Route("CreateTrip")]
+        public async Task<IActionResult> CreateTrip([FromBody] CreateTripRequest modelRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
+            //Resource.Culture = cultureInfo;
+
+            var user = await _userHelper.GetUserAsync(new System.Guid(modelRequest.UserId));
+            if (user == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "El usuario no existe",
+                    Result = ModelState
+                });
+            }
+
+            var tripEntity = new TripsEntity()
+            {
+                StartDate = modelRequest.StartDate,
+                EndDate = modelRequest.EndDate,
+                Description = modelRequest.Description,
+                City = await _dataContext.Cities.FindAsync(modelRequest.CityId),
+                User = user
+            };
+
+            _dataContext.Trips.Add(tripEntity);
+
+            await _dataContext.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("AddDetails")]
+        public async Task<IActionResult> AddDetails([FromBody] AddDetailsRequest modelRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
+            //Resource.Culture = cultureInfo;
+
+            var trip = await _dataContext.Trips.FindAsync(int.Parse(modelRequest.TripId));
+            if (trip == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "El viaje no exite",
+                    Result = ModelState
+                });
+            }
+
+            string picturePath = string.Empty;
+
+            if (modelRequest.VoucherPath != null && modelRequest.VoucherPath.Length > 0)
+            {
+                picturePath = _imageHelper.UploadImage(modelRequest.VoucherPath, "Vouchers");
+            }
+
+            var tripDetail = new TripDetailsEntity()
+            {
+                ExpensesType = await _dataContext.ExpensesTypes.FindAsync(int.Parse(modelRequest.ExpensesTypeId)),
+                Date = modelRequest.Date,
+                Cost = modelRequest.Cost,
+                VoucherPath = picturePath,
+                Trip = trip
+            };
+
+            _dataContext.TripDetails.Add(tripDetail);
+
+            await _dataContext.SaveChangesAsync();
+            return NoContent();
+        }
+
     }
 }

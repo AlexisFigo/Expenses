@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using Soccer.Web.Models;
-using Soccer.Common.Enums;
+using Expenses.Common.Enums;
+using System;
 
-namespace Expenses.Web.Helper
+namespace Expenses.Web.Helpers
 {
     public class UserHelper : IUserHelper
     {
@@ -25,6 +26,17 @@ namespace Expenses.Web.Helper
             _roleManager = roleManager;
             _context = context;
         }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(UserEntity user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(UserEntity user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
 
         public async Task<IdentityResult> ChangePasswordAsync(UserEntity user, string oldPassword, string newPassword)
         {
@@ -72,6 +84,20 @@ namespace Expenses.Web.Helper
 
             return query.FirstOrDefault();
 
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(UserEntity user, string token, string password)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, password);
+        }
+
+        public async Task<UserEntity> GetUserAsync(Guid userId)
+        {
+            var query = from u in _context.users
+                        where u.Id == userId.ToString()
+                        select u;
+
+            return query.FirstOrDefault();
         }
         public async Task<SignInResult> ValidatePasswordAsync(UserEntity user, string password)
         {

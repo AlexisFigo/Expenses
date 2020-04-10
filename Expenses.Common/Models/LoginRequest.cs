@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Expenses.Common.Model
+namespace Expenses.Common.Models
 {
-    public class RecoverPasswordRequest
+    public class LoginRequest
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Username { get; set; }
 
         [Required]
+        [MinLength(6)]
+        public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
+
         public string CultureInfo { get; set; }
     }
 }

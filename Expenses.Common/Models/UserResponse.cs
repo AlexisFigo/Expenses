@@ -1,7 +1,7 @@
-﻿using Soccer.Common.Enums;
+﻿using Expenses.Common.Enums;
 using System;
 
-namespace Soccer.Common.Models
+namespace Expenses.Common.Models
 {
     public class UserResponse
     {

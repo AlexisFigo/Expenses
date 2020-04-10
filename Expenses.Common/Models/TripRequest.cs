@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Expenses.Common.Model
+namespace Expenses.Common.Models
 {
     public class TripRequest
     {

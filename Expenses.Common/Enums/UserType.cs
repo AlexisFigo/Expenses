@@ -1,4 +1,4 @@
-﻿namespace Soccer.Common.Enums
+﻿namespace Expenses.Common.Enums
 {
     public enum UserType
     {

@@ -1,4 +1,4 @@
-﻿namespace Soccer.Common.Models
+﻿namespace Expenses.Common.Models
 {
     public class Response
     {

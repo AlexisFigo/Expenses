@@ -1,14 +1,14 @@
 ﻿using Expenses.Web.Data.Entities;
-using Soccer.Common.Models;
+using Expenses.Common.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Expenses.Web.Helper
+namespace Expenses.Web.Helpers
 {
     public interface IConverterHelper
     {
         UserResponse ToUserResponse(UserEntity userEntity, string token, DateTime expiration);
+
+        List<TripResponse> ToTripResponse(List<TripsEntity> tripsEntity);
     }
 }

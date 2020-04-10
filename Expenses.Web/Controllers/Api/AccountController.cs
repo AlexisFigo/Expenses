@@ -1,13 +1,12 @@
-﻿using Expenses.Common.Model;
+﻿using Expenses.Common.Models;
 using Expenses.Web.Data;
 using Expenses.Web.Data.Entities;
-using Expenses.Web.Helper;
+using Expenses.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Soccer.Common.Enums;
-using Soccer.Common.Models;
+using Expenses.Common.Enums;
 using System;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,15 +25,19 @@ namespace Expenses.Web.Controllers.Api
         private readonly IUserHelper _userHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IConfiguration _configuration;
+        private readonly IMailHelper _mailHelper;
+
         public AccountController(
             DataContext dataContext,
             IUserHelper userHelper,
             IConfiguration configuration,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            IMailHelper mailHelper)
         {
             _dataContext = dataContext;
             _userHelper = userHelper;
             _configuration = configuration;
+            _mailHelper = mailHelper;
             _converterHelper = converterHelper;
         }
 
@@ -131,15 +134,19 @@ namespace Expenses.Web.Controllers.Api
             UserEntity userNew = await _userHelper.GetUserAsync(request.Email);
             await _userHelper.AddUserToRoleAsync(userNew, user.UserType.ToString());
 
-            //string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+            string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
             string tokenLink = Url.Action("ConfirmEmail", "Account", new
             {
                 userid = user.Id,
-                //token = myToken
+                token = myToken
             }, protocol: HttpContext.Request.Scheme);
 
-            //_mailHelper.SendMail(request.Email, Resource.ConfirmEmail, $"<h1>{Resource.ConfirmEmail}</h1>" +
-            //    $"{Resource.ConfirmEmailSubject}</br></br><a href = \"{tokenLink}\">{Resource.ConfirmEmail}</a>");
+  //          _mailHelper.SendMail(request.Email, Resource.ConfirmEmail, $"<h1>{Resource.ConfirmEmail}</h1>" +
+//                $"{Resource.ConfirmEmailSubject}</br></br><a href = \"{tokenLink}\">{Resource.ConfirmEmail}</a>");
+
+            _mailHelper.SendMail(request.Email, "Connfirmar email", $"<h1> confirmar email </h1>" +
+            $"confirma email</br></br><a href = \"{tokenLink}\">confirmar email</a>");
+
 
             return Ok(new Response
             {
@@ -258,10 +265,14 @@ namespace Expenses.Web.Controllers.Api
             }
 
             string myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
-            //string link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
+            string link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
             //_mailHelper.SendMail(request.Email, Resource.RecoverPassword, $"<h1>{Resource.RecoverPassword}</h1>" +
             //  $"{Resource.RecoverPasswordSubject}:</br></br>" +
             //$"<a href = \"{link}\">{Resource.RecoverPassword}</a>");
+
+            _mailHelper.SendMail(request.Email, "mensaje", $"<h1>mensaje</h1>" +
+              $"mensaje:</br></br>" +
+            $"<a href = \"{link}\">mensaje</a>");
 
             return Ok(new Response
             {
