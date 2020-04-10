@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Expenses.Web.Resources;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Expenses.Web.Controllers.Api
 {
@@ -24,15 +27,16 @@ namespace Expenses.Web.Controllers.Api
         public TripController(
             DataContext dataContext,
             IConverterHelper converterHelper,
-            IUserHelper userHelper)
+            IUserHelper userHelper,
+            ImageHelper imageHelper)
         {
             _dataContext = dataContext;
             _converterHelper = converterHelper;
-            //_imageHelper = imageHelper;
+            _imageHelper = imageHelper;
             _userHelper = userHelper;
         }
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("GetTrips")]
         public async Task<IActionResult> GetTrips([FromBody] TripRequest modelRequest)
@@ -48,7 +52,7 @@ namespace Expenses.Web.Controllers.Api
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
-            //Resource.Culture = cultureInfo;
+            Resource.Culture = cultureInfo;
 
             List<TripsEntity> trips = await _dataContext.Trips
                 .Include(t => t.City)
@@ -60,6 +64,7 @@ namespace Expenses.Web.Controllers.Api
             return Ok(_converterHelper.ToTripResponse(trips));
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("CreateTrip")]
         public async Task<IActionResult> CreateTrip([FromBody] CreateTripRequest modelRequest)
@@ -75,7 +80,7 @@ namespace Expenses.Web.Controllers.Api
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
-            //Resource.Culture = cultureInfo;
+            Resource.Culture = cultureInfo;
 
             var user = await _userHelper.GetUserAsync(new System.Guid(modelRequest.UserId));
             if (user == null)
@@ -83,7 +88,7 @@ namespace Expenses.Web.Controllers.Api
                 return BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "El usuario no existe",
+                    Message = Resource.UserDoesntExists,
                     Result = ModelState
                 });
             }
@@ -103,6 +108,7 @@ namespace Expenses.Web.Controllers.Api
             return NoContent();
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("AddDetails")]
         public async Task<IActionResult> AddDetails([FromBody] AddDetailsRequest modelRequest)
@@ -118,7 +124,7 @@ namespace Expenses.Web.Controllers.Api
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
-            //Resource.Culture = cultureInfo;
+            Resource.Culture = cultureInfo;
 
             var trip = await _dataContext.Trips.FindAsync(int.Parse(modelRequest.TripId));
             if (trip == null)
@@ -126,7 +132,7 @@ namespace Expenses.Web.Controllers.Api
                 return BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "El viaje no exite",
+                    Message = Resource.TripIdIncorrect,
                     Result = ModelState
                 });
             }
