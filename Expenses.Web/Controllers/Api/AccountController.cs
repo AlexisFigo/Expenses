@@ -4,10 +4,16 @@ using Expenses.Web.Data.Entities;
 using Expenses.Web.Helper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Soccer.Common.Enums;
 using Soccer.Common.Models;
+using System;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -18,15 +24,63 @@ namespace Expenses.Web.Controllers.Api
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
-        //private readonly IConverterHelper _converterHelper;
-
+        private readonly IConverterHelper _converterHelper;
+        private readonly IConfiguration _configuration;
         public AccountController(
             DataContext dataContext,
-            IUserHelper userHelper)
+            IUserHelper userHelper,
+            IConfiguration configuration,
+            IConverterHelper converterHelper)
         {
             _dataContext = dataContext;
             _userHelper = userHelper;
-            //_converterHelper = converterHelper;
+            _configuration = configuration;
+            _converterHelper = converterHelper;
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Authentication([FromBody] LoginRequest modelRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
+            //Resource.Culture = cultureInfo;
+
+            UserEntity user = await _userHelper.GetUserAsync(modelRequest.Username);
+            if (user != null)
+            {
+                Microsoft.AspNetCore.Identity.SignInResult result = await _userHelper.ValidatePasswordAsync(user, modelRequest.Password);
+
+                if (result.Succeeded)
+                {
+                    Claim[] claims = new[]
+                    {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                    SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+                    SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    JwtSecurityToken token = new JwtSecurityToken(
+                        _configuration["Tokens:Issuer"],
+                        _configuration["Tokens:Audience"],
+                        claims,
+                        expires: DateTime.UtcNow.AddDays(15),
+                        signingCredentials: credentials);
+                  
+                    var response = _converterHelper.ToUserResponse(user,
+                        new JwtSecurityTokenHandler().WriteToken(token),
+                        token.ValidTo);
+
+                    return Accepted(response);
+                }
+            }
+
+            return BadRequest();
         }
 
         [HttpPost]
@@ -54,10 +108,10 @@ namespace Expenses.Web.Controllers.Api
                 {
                     IsSuccess = false,
                     Message = "El usuario ya exite" //Resource.UserAlreadyExists
-                }) ;
+                });
             }
 
-          
+
 
             user = new UserEntity
             {
@@ -206,8 +260,8 @@ namespace Expenses.Web.Controllers.Api
             string myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
             //string link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
             //_mailHelper.SendMail(request.Email, Resource.RecoverPassword, $"<h1>{Resource.RecoverPassword}</h1>" +
-              //  $"{Resource.RecoverPasswordSubject}:</br></br>" +
-                //$"<a href = \"{link}\">{Resource.RecoverPassword}</a>");
+            //  $"{Resource.RecoverPasswordSubject}:</br></br>" +
+            //$"<a href = \"{link}\">{Resource.RecoverPassword}</a>");
 
             return Ok(new Response
             {

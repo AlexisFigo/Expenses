@@ -1,4 +1,5 @@
 ﻿using Soccer.Common.Enums;
+using System;
 
 namespace Soccer.Common.Models
 {
@@ -15,6 +16,10 @@ namespace Soccer.Common.Models
         public UserType UserType { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
+
+        public string Token { get; set; }
+
+        public DateTime Expiration { get; set; }
 
     }
 }
