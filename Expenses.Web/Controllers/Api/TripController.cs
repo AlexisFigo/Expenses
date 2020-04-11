@@ -20,7 +20,7 @@ namespace Expenses.Web.Controllers.Api
     public class TripController : ControllerBase
     {
         private readonly DataContext _dataContext;
-        private readonly ImageHelper _imageHelper;
+        private readonly IImageHelper _imageHelper;
         private readonly IUserHelper _userHelper;
         private readonly IConverterHelper _converterHelper;
 
@@ -28,7 +28,7 @@ namespace Expenses.Web.Controllers.Api
             DataContext dataContext,
             IConverterHelper converterHelper,
             IUserHelper userHelper,
-            ImageHelper imageHelper)
+            IImageHelper imageHelper)
         {
             _dataContext = dataContext;
             _converterHelper = converterHelper;
