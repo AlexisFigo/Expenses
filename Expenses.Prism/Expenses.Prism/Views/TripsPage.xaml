@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Expenses.Prism.Views.TripsPage"
+             Title="{Binding Title}">
+    <StackLayout Padding="5">
+        <CollectionView ItemsSource="{Binding Trips}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectTournamentCommand}"/>
+                        </Grid.GestureRecognizers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout VerticalOptions="Start">
+                            <Label Text="{Binding Description}" 
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   LineBreakMode="TailTruncation" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding StartDateLocal, StringFormat='{0:yyyy/MM/dd}'}"
+                                   LineBreakMode="TailTruncation"
+                                   FontAttributes="Italic" 
+                                   VerticalOptions="End"
+                                   Margin="0,0,5,0"/>
+                                <Label Text="{Binding EndDateLocal, StringFormat='{0:yyyy/MM/dd}'}"
+                                   LineBreakMode="TailTruncation"
+                                   FontAttributes="Italic" 
+                                   VerticalOptions="End" />
+                            </StackLayout>
+                            <Label Text="{Binding City.Name}"
+                                   LineBreakMode="TailTruncation"
+                                   FontAttributes="Italic" 
+                                   VerticalOptions="End" />
+                            <Label Text="{Binding Total}"
+                                   LineBreakMode="TailTruncation"
+                                   FontAttributes="Italic" 
+                                   VerticalOptions="End" />
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

@@ -4,8 +4,9 @@
              xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
              x:Class="Expenses.Prism.App">
 	<Application.Resources>
-
-		<!-- Application resource dictionary -->
+        <x:String x:Key="UrlAPI">
+            https://expenseswebalexis.azurewebsites.net/</x:String>
+        <!-- Application resource dictionary -->
 
 	</Application.Resources>
 </prism:PrismApplication>
