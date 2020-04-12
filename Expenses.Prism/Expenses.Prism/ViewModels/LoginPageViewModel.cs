@@ -1,6 +1,7 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -52,7 +53,7 @@ namespace Expenses.Prism.ViewModels
 
         private async void ForgotPasswordAsync()
         {
-            //await _navigationService.NavigateAsync(nameof(RememberPasswordPage));
+            await _navigationService.NavigateAsync(nameof(RememberPasswordPage));
         }
 
         private async void LoginAsync()

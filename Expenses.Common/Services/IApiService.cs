@@ -5,6 +5,8 @@ namespace Expenses.Common.Services
 {
     public interface IApiService
     {
+        Task<Response> RecoverPassword(string urlBase, string servicePrefix, string controller, object request, string token);
+
         Task<Response> AddTtripDetail(string urlBase, string servicePrefix, string controller, AddDetailsRequest request, string token);
 
         Task<Response> GetComboBox<T>(string urlBase, string servicePrefix, string controller);
