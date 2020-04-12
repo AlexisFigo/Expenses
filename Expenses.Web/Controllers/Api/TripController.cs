@@ -159,5 +159,58 @@ namespace Expenses.Web.Controllers.Api
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("GetExpenesesType")]
+        public  async Task<IActionResult> GetExpenesesType()
+        {
+            var expenses = _dataContext.ExpensesTypes.AsEnumerable();
+            if (expenses == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = Resource.TripIdIncorrect,
+                    Result = ModelState
+                });
+            }
+
+            var tripDetail = expenses.Select(e => new ExpensesTypeResponse
+            {
+                Id = e.Id,
+                Name = e.Name
+            }) ;
+
+            return Ok(tripDetail);
+        }
+
+        [HttpGet]
+        [Route("GetCountries")]
+        public async Task<IActionResult> GetCountries()
+        {
+
+            var countries =  await _dataContext.Countries.Include(c => c.Cities).ToListAsync();
+            if (countries == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = Resource.TripIdIncorrect,
+                    Result = ModelState
+                });
+            }
+
+            var contriesResponse = countries.Select(c => new CounrtriesResponse
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Cities = c.Cities.Select(ci => new CityResponse 
+                { 
+                    Id = ci.Id,
+                    Name = ci.Name
+                }).ToList()
+            });
+
+            return Ok(contriesResponse);
+        }
     }
 }
