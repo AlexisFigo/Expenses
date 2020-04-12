@@ -20,7 +20,7 @@ namespace Expenses.Common.Models
 
         public string VoucherFullPath => string.IsNullOrEmpty(VoucherPath)
             ? "https://SoccerWeb4.azurewebsites.net//images/noimage.png"
-            : $"https://SoccerWeb4.azurewebsites.net{VoucherPath.Substring(1)}";
+            : $"https://expenseswebalexis.azurewebsites.net{VoucherPath.Substring(1)}";
 
     }
 }

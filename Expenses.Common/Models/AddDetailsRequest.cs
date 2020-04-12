@@ -6,7 +6,6 @@ namespace Expenses.Common.Models
 {
     public class AddDetailsRequest
     {
-     
         public string ExpensesTypeId { get; set; }
 
         public DateTime Date { get; set; }

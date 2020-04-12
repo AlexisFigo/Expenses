@@ -46,7 +46,7 @@ namespace Expenses.Prism.ViewModels
         {
             var parameters = new NavigationParameters
             {
-                { "trip", _trip.Id }
+                { "tripId", _trip.Id }
             };
 
             await _navigationService.NavigateAsync(nameof(AddTripDetailsPage), parameters);

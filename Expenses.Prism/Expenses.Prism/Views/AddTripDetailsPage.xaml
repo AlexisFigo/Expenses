@@ -13,7 +13,7 @@
                      Padding="5">
             <StackLayout >
                 <ffimageloading:CachedImage Aspect="AspectFit"
-                                                Source="{Binding VoucherdPath}" 
+                                                Source="{Binding Image}" 
                                                 CacheDuration= "50"
                                                 HeightRequest="150"
                                                 Margin="5"
@@ -31,40 +31,39 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <Label     Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Expenses type"
+                               VerticalOptions="Center"/>
+                    <Picker Grid.Row="0"
+                                Grid.Column="1"
+                                ItemDisplayBinding="{Binding Name}"
+                                ItemsSource="{Binding ExpensesTypes}"
+                                SelectedItem="{Binding ExpensesType}"
+                                Title="Expense type"/>
                     <Label Grid.Column="0" 
-                           Grid.Row="0"
+                           Grid.Row="1"
                            HorizontalTextAlignment="End"
                            Text="Start date"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
-                                Grid.Row="0"
-                                Date="{Binding StartDate}"/>
-                    <Label Grid.Column="0" 
-                           Grid.Row="1"
-                           HorizontalTextAlignment="End"
-                           Text="End date"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" 
-                                Grid.Row="1"  
-                                Text="{Binding EndDate}"/>
+                                Grid.Row="1"
+                                Date="{Binding Detail.Date}"/>
                     <Label Grid.Column="0" 
                            Grid.Row="2"
                            HorizontalTextAlignment="End"
-                           Text="Description"
+                           Text="Cost"
                            VerticalOptions="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        Grid.Row="2"
-                        Placeholder="Description"
-                        Text="{Binding Description}"
-                        />
+                    <Entry Grid.Column="1" 
+                                Grid.Row="2"  
+                                Text="{Binding Detail.Cost}"/>
                 </Grid>
             </StackLayout>
             <StackLayout>
                 <Button 
-                    Command="{Binding AddCommand}" 
+                    Command="{Binding AddDetailCommand}" 
                     IsEnabled="{Binding IsEnabled}"
-                    Text="Add trip"
+                    Text="Add Detail"
                         />
             </StackLayout>
         </StackLayout>
