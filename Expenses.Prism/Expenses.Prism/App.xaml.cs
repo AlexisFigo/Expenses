@@ -34,6 +34,7 @@ namespace Expenses.Prism
         {
             containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.Register<IFilesHelper, FilesHelper>();
+            containerRegistry.Register<IRegexHelper, RegexHelper>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<ExpensesMasterDetailPage, ExpensesMasterDetailPageViewModel>();
@@ -44,6 +45,7 @@ namespace Expenses.Prism
             containerRegistry.RegisterForNavigation<TripDetailsPages, TripDetailsPagesViewModel>();
             containerRegistry.RegisterForNavigation<AddTripDetailsPage, AddTripDetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<RememberPasswordPage, RememberPasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
         }
     }
 }

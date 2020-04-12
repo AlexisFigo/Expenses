@@ -11,98 +11,7 @@ namespace Expenses.Common.Services
 {
     public class ApiService : IApiService
     {
-        public async Task<Response> AddTtrip(string urlBase, string servicePrefix, string controller, CreateTripRequest request, string token)
-        {
-            try
-            {
-                var client = new HttpClient
-                {
-                    BaseAddress = new Uri(urlBase),
-                };
-
-                var url = $"{servicePrefix}{controller}";
-
-                string rq = JsonConvert.SerializeObject(request);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                StringContent content = new StringContent(rq, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(url, content);
-
-                var result = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Message = result,
-                    };
-                }
-                else
-                {
-                    return new Response
-                    {
-                        IsSuccess = true,
-                        Message = result,
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
-            }
-        }
-
-        public async Task<Response> AddTtripDetail(string urlBase, string servicePrefix, string controller, AddDetailsRequest request, string token)
-        {
-            try
-            {
-                var client = new HttpClient
-                {
-                    BaseAddress = new Uri(urlBase),
-                };
-
-                var url = $"{servicePrefix}{controller}";
-
-                string rq = JsonConvert.SerializeObject(request);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                StringContent content = new StringContent(rq, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(url, content);
-
-                var result = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Message = result,
-                    };
-                }
-                else
-                {
-                    return new Response
-                    {
-                        IsSuccess = true,
-                        Message = result,
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
-            }
-        }
-
+       
         public async Task<Response> GetComboBox<T>(string urlBase, string servicePrefix, string controller)
         {
             try
@@ -236,7 +145,7 @@ namespace Expenses.Common.Services
             }
         }
 
-        public async Task<Response> RecoverPassword(string urlBase, string servicePrefix, string controller, object request, string token)
+        public async Task<Response> PostAsync(string urlBase, string servicePrefix, string controller, object request, string token)
         {
             try
             {

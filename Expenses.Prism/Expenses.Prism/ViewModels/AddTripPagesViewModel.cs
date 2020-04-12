@@ -69,7 +69,7 @@ namespace Expenses.Prism.ViewModels
 
             string token = Settings.Token;
 
-            Response response = await _apiService.AddTtrip(url, "api", "/Trip/CreateTrip", request,token);
+            Response response = await _apiService.PostAsync(url, "api", "/Trip/CreateTrip", request,token);
 
             if (!response.IsSuccess)
             {

@@ -114,7 +114,7 @@ namespace Expenses.Prism.ViewModels
 
         private async void RegisterAsync()
         {
-            //await _navigationService.NavigateAsync(nameof(RegisterPage));
+            await _navigationService.NavigateAsync(nameof(RegisterPage));
         }
     }
 }

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Expenses.Prism.Views.RegisterPage">
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="5">
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" 
+                           Grid.Row="0"
+                           HorizontalTextAlignment="End"
+                           Text="First Name"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="0"
+                           Keyboard="Email"
+                           Placeholder="First Name"
+                           Text="{Binding User.FirstName}"/>
+                    <Label Grid.Column="0" 
+                           Grid.Row="1"
+                           HorizontalTextAlignment="End"
+                           Text="Las tName"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="1"
+                           Placeholder="Last Name"
+                           Text="{Binding User.LastName}"/>
+                    <Label Grid.Column="0" 
+                           Grid.Row="2"
+                           HorizontalTextAlignment="End"
+                           Text="Email"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="2"
+                           Keyboard="Email"
+                           Placeholder="Email"
+                           Text="{Binding User.Email}"/>
+                    <Label Grid.Column="0" 
+                           Grid.Row="3"
+                           HorizontalTextAlignment="End"
+                           Text="Password"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="3"
+                           IsPassword="True"
+                           Placeholder="Password"
+                           Text="{Binding User.Password}"/>
+                    <Label Grid.Column="0" 
+                           Grid.Row="4"
+                           HorizontalTextAlignment="End"
+                           Text="Password Confirm"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="4"
+                           IsPassword="True"
+                           Placeholder="Password Confirm"
+                           Text="{Binding User.PasswordConfirm}"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout>
+                <Button Command="{Binding RegisterCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        Text="Register"/>
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>
