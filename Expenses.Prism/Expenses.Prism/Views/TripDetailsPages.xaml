@@ -16,9 +16,11 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <StackLayout VerticalOptions="Start">
-                            <Label Text="{Binding ExpenseType.Name}" 
+                        <StackLayout Grid.Column="0" 
+                            VerticalOptions="Start">
+                            <Label Text="{Binding ExpensesType.Name}" 
                                    FontAttributes="Bold"
                                    FontSize="Medium"
                                    LineBreakMode="TailTruncation" />
@@ -35,7 +37,8 @@
                                    LineBreakMode="TailTruncation"
                                    FontAttributes="Italic" 
                                    VerticalOptions="End" />
-                            <ffimageloading:CachedImage Grid.Column="0"
+                        </StackLayout>
+                        <ffimageloading:CachedImage Grid.Column="1"
                                                         Aspect="AspectFit"
                                                         Source="{Binding VoucherFullPath}" 
                                                         CacheDuration= "50"
@@ -43,7 +46,6 @@
                                                         RetryCount= "3"
                                                         RetryDelay= "600"
                                                         WidthRequest="100"/>
-                        </StackLayout>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
