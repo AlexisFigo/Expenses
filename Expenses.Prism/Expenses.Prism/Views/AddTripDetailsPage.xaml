@@ -2,15 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
-             x:Class="Expenses.Prism.Views.AddTripPages"
+             x:Class="Expenses.Prism.Views.AddTripDetailsPage"
              Title="{Binding Title}">
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All" 
                      Padding="5">
-            <StackLayout VerticalOptions="CenterAndExpand">
+            <StackLayout >
+                <ffimageloading:CachedImage Aspect="AspectFit"
+                                                Source="{Binding Voucherd}" 
+                                                CacheDuration= "50"
+                                                HeightRequest="150"
+                                                Margin="5"
+                                                RetryCount= "3"
+                                                RetryDelay= "600">
+                        <ffimageloading:CachedImage.Transformations>
+                            <fftransformations:CircleTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                        <ffimageloading:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                    </ffimageloading:CachedImage>
                 <Grid Margin="20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -23,15 +37,15 @@
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
                                 Grid.Row="0"
-                                Date="{Binding StartDate}"/>    
+                                Date="{Binding StartDate}"/>
                     <Label Grid.Column="0" 
                            Grid.Row="1"
                            HorizontalTextAlignment="End"
                            Text="End date"
                            VerticalOptions="Center"/>
-                    <DatePicker Grid.Column="1" 
+                    <Entry Grid.Column="1" 
                                 Grid.Row="1"  
-                                Date="{Binding EndDate}"/>
+                                Text="{Binding EndDate}"/>
                     <Label Grid.Column="0" 
                            Grid.Row="2"
                            HorizontalTextAlignment="End"

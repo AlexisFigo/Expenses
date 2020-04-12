@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using Prism;
 using Prism.Ioc;
+using Syncfusion.XForms.Pickers.iOS;
 using UIKit;
 
 
@@ -24,7 +25,7 @@ namespace Expenses.Prism.iOS
             global::Xamarin.Forms.Forms.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
-
+            SfDatePickerRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
     }

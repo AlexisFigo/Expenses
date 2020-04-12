@@ -1,4 +1,5 @@
 ﻿using Expenses.Common.Models;
+using Expenses.Prism.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -10,16 +11,15 @@ namespace Expenses.Prism.ViewModels
     public class TripItemViewModel : TripResponse
     {
         private readonly INavigationService _navigationService;
-        private DelegateCommand _selectTournamentCommand;
-        private DelegateCommand _selectTournament2Command;
+        private DelegateCommand _selectTripCommand;
 
         public TripItemViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }
 
-        public DelegateCommand SelectTournamentCommand => _selectTournamentCommand ??
-           (_selectTournamentCommand = new DelegateCommand(SelectTtripAsync));
+        public DelegateCommand SelectTripCommand => _selectTripCommand ??
+           (_selectTripCommand = new DelegateCommand(SelectTtripAsync));
 
         private async void SelectTtripAsync()
         {
@@ -29,7 +29,7 @@ namespace Expenses.Prism.ViewModels
             };
 
             //Settings.Tournament = JsonConvert.SerializeObject(this);
-            //await _navigationService.NavigateAsync(nameof(TournamentTabbedPage), parameters);
+            await _navigationService.NavigateAsync(nameof(TripDetailsPages), parameters);
         }
     }
 }

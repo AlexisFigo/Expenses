@@ -5,6 +5,7 @@ using Expenses.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Expenses.Common.Services;
+using Syncfusion.Licensing;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Expenses.Prism
@@ -22,6 +23,7 @@ namespace Expenses.Prism
 
         protected override async void OnInitialized()
         {
+            SyncfusionLicenseProvider.RegisterLicense("MjM4MzU0QDMxMzgyZTMxMmUzMGdwWEhOV0dpSnlFUVVDaVA4UkMreTlhbWlOVFdNWEo3YmdBR0tDeHRrSVU9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
@@ -37,6 +39,8 @@ namespace Expenses.Prism
             containerRegistry.RegisterForNavigation<TripsPage, TripsPageViewModel>();
             containerRegistry.RegisterForNavigation<AddTripPages, AddTripPagesViewModel>();
             containerRegistry.RegisterForNavigation<logoutPages, logoutPagesViewModel>();
+            containerRegistry.RegisterForNavigation<TripDetailsPages, TripDetailsPagesViewModel>();
+            containerRegistry.RegisterForNavigation<AddTripDetailsPage, AddTripDetailsPageViewModel>();
         }
     }
 }

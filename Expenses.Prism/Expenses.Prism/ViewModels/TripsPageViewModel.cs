@@ -18,6 +18,7 @@ namespace Expenses.Prism.ViewModels
         public TripsPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             _apiService = apiService;
+            _navigationService = navigationService;
             Title = "Trips";
             LoadTripsAsync();
         }
