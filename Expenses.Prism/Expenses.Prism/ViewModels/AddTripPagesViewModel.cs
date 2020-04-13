@@ -1,11 +1,13 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Expenses.Prism.ViewModels
@@ -18,14 +20,30 @@ namespace Expenses.Prism.ViewModels
 
         private readonly INavigationService _navigationService;
         private IApiService _apiService;
+        private CityResponse _city;
+        private ObservableCollection<CityResponse> _cities;
+
         public AddTripPagesViewModel(INavigationService navigationService,IApiService apiService) : base(navigationService)
         {
             Title = "Add trips";
             _apiService = apiService;
             IsEnabled = true;
+            LoadCities();
         }
 
         public DelegateCommand AddCommand => _add ?? (_add = new DelegateCommand(AddTripSync));
+
+        public CityResponse City
+        {
+            get => _city;
+            set => SetProperty(ref _city, value);
+        }
+
+        public ObservableCollection<CityResponse> Cities
+        {
+            get => _cities;
+            set => SetProperty(ref _cities, value);
+        }
 
         public DateTime StartDate { get; set; }
 
@@ -68,7 +86,7 @@ namespace Expenses.Prism.ViewModels
                 UserId = Settings.Id,
                 StartDate = StartDate,
                 EndDate = EndDate,
-                CityId = "021272ec-74a7-484b-a1ea-7ae921b74a05",
+                CityId = City.Id,
                 Description = Description,
                 CultureInfo = "es"
             };
@@ -85,6 +103,47 @@ namespace Expenses.Prism.ViewModels
                 //Password = string.Empty;
                 return;
             }
+            IsRunning = false;
+            IsEnabled = true;
+        }
+
+        private async void LoadCities()
+        {
+            string url = App.Current.Resources["UrlAPI"].ToString();
+            //bool connection = await _apiService.CheckConnectionAsync(url);
+            //if (!connection)
+            //{
+            //IsRunning = true;
+            //IsEnabled = false;
+            //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+            //return;
+            //}
+            IsEnabled = false;
+            IsRunning = true;
+
+            string token = Settings.Token;
+
+            Response response = await _apiService.GetComboBox<CounrtriesResponse>(url, "api", "/Trip/GetCountries");
+
+            if (!response.IsSuccess)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
+                //Password = string.Empty;
+                return;
+            }
+
+            List<CounrtriesResponse> counrtries = (List<CounrtriesResponse>)response.Result;
+            Cities = new ObservableCollection<CityResponse>();
+            foreach (var itm in counrtries)
+            {
+                foreach (var itmj in itm.Cities)
+                {
+                    Cities.Add(itmj);
+                }
+            }
+
             IsRunning = false;
             IsEnabled = true;
         }

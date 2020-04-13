@@ -17,30 +17,40 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <Label     Grid.Row="0"
+                               Grid.Column="0"
+                               Text="City"
+                               VerticalOptions="Center"/>
+                    <Picker Grid.Row="0"
+                                Grid.Column="1"
+                                ItemDisplayBinding="{Binding Name}"
+                                ItemsSource="{Binding Cities}"
+                                SelectedItem="{Binding City}"
+                                Title="City"/>
                     <Label Grid.Column="0" 
-                           Grid.Row="0"
+                           Grid.Row="1"
                            HorizontalTextAlignment="End"
                            Text="Start date"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
-                                Grid.Row="0"
+                                Grid.Row="1"
                                 Date="{Binding StartDate}"/>    
                     <Label Grid.Column="0" 
-                           Grid.Row="1"
+                           Grid.Row="2"
                            HorizontalTextAlignment="End"
                            Text="End date"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1" 
-                                Grid.Row="1"  
+                                Grid.Row="2"  
                                 Date="{Binding EndDate}"/>
                     <Label Grid.Column="0" 
-                           Grid.Row="2"
+                           Grid.Row="3"
                            HorizontalTextAlignment="End"
                            Text="Description"
                            VerticalOptions="Center"/>
                     <Editor
                         Grid.Column="1"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Placeholder="Description"
                         Text="{Binding Description}"
                         />
