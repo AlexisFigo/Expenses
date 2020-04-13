@@ -29,7 +29,13 @@ namespace Expenses.Prism.ViewModels
                 {
                     //Icon = "tournament",
                     PageName = "ProfilePage",
-                    Title = "Profile"
+                    Title = "Modify profile"
+                },
+                new Menu
+                {
+                    //Icon = "tournament",
+                    PageName = "ChangePasswordPage",
+                    Title = "Change password"
                 },
                 new Menu
                 {
