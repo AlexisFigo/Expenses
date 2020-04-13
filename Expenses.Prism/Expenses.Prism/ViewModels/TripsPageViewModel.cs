@@ -14,6 +14,7 @@ namespace Expenses.Prism.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
+        private bool _isRunning;
         private List<TripItemViewModel> _trips;
         public TripsPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
@@ -29,6 +30,12 @@ namespace Expenses.Prism.ViewModels
             set => SetProperty(ref _trips, value);
         }
 
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
+
         private async void LoadTripsAsync()
         {
             //todo validar conexion
@@ -40,7 +47,7 @@ namespace Expenses.Prism.ViewModels
                 CultureInfo = "es"
             };
             string token = Settings.Token;
-
+            IsRunning = true;
             Response response = await _apiService.GetTrips<TripResponse>(url, 
                 "api", 
                 "/Trip/GetTrips",
@@ -49,6 +56,7 @@ namespace Expenses.Prism.ViewModels
 
             if (!response.IsSuccess)
             {
+                IsRunning = false;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
             }
 
@@ -62,6 +70,7 @@ namespace Expenses.Prism.ViewModels
                City = t.City,
                TripDetails = t.TripDetails
             }).ToList();
+            IsRunning = false;
         }
     }
 }

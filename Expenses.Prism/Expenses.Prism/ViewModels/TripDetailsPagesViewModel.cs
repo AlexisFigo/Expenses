@@ -13,6 +13,7 @@ namespace Expenses.Prism.ViewModels
     {
         private readonly INavigationService _navigationService;
         private TripResponse _trip;
+        private bool _isRunning;
         private List<TripDetailsResponse> _tripsDetails;
         private DelegateCommand _addDetailCommand;
         public TripDetailsPagesViewModel(INavigationService navigationService):base(navigationService)
@@ -23,6 +24,11 @@ namespace Expenses.Prism.ViewModels
         public DelegateCommand AddDetailCommand => _addDetailCommand ??
            (_addDetailCommand = new DelegateCommand(AddTripDetailAsync));
 
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
         public List<TripDetailsResponse> TripsDetails
         {
             get => _tripsDetails;
@@ -39,7 +45,9 @@ namespace Expenses.Prism.ViewModels
 
         private void LoadDetails()
         {
+            IsRunning = true;
             TripsDetails = _trip.TripDetails;
+            IsRunning = false;
         }
 
         private async void AddTripDetailAsync()

@@ -16,6 +16,7 @@ namespace Expenses.Prism.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
+        private bool _isRunning;
         private bool _isEnabled;
         private string _password;
         private DelegateCommand _loginCommand;
@@ -36,7 +37,11 @@ namespace Expenses.Prism.ViewModels
 
         public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(RegisterAsync));
 
-
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -58,6 +63,7 @@ namespace Expenses.Prism.ViewModels
 
         private async void LoginAsync()
         {
+            
             if (string.IsNullOrEmpty(Email))
             {
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
@@ -70,7 +76,7 @@ namespace Expenses.Prism.ViewModels
                 return;
             }
 
-            //IsRunning = true;
+            IsRunning = true;
             IsEnabled = false;
 
             string url = App.Current.Resources["UrlAPI"].ToString();
@@ -106,7 +112,7 @@ namespace Expenses.Prism.ViewModels
             Settings.User = JsonConvert.SerializeObject(user);
             Settings.Token = user.Token;
             Settings.Id = user.Id;
-            //IsRunning = false;
+            IsRunning = false;
             IsEnabled = true;
 
             await _navigationService.NavigateAsync("/ExpensesMasterDetailPage/NavigationPage/TripsPage");

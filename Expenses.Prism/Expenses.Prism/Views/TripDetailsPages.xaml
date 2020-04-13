@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
          	 prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Expenses.Prism.Views.TripDetailsPages"
              Title="{Binding Title}">
@@ -54,5 +55,14 @@
             Command="{Binding AddDetailCommand}"
             Text="Add detail"
             />
+        <busyindicator:SfBusyIndicator AnimationType="Globe" 
+                                           AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                       AbsoluteLayout.LayoutFlags="All"
+                	                       HorizontalOptions="Center"
+                	                       IsVisible="{Binding IsRunning}"
+                	                       Title="Loading"
+                	                       VerticalOptions="Center"
+                	                       ViewBoxWidth="80"
+                	                       ViewBoxHeight="80" />
     </StackLayout>
 </ContentPage>

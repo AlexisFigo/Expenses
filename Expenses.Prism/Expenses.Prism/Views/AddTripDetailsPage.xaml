@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
@@ -67,5 +68,14 @@
                         />
             </StackLayout>
         </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="Globe" 
+                                           AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                       AbsoluteLayout.LayoutFlags="All"
+                	                       HorizontalOptions="Center"
+                	                       IsVisible="{Binding IsRunning}"
+                	                       Title="Loading"
+                	                       VerticalOptions="Center"
+                	                       ViewBoxWidth="80"
+                	                       ViewBoxHeight="80" />
     </AbsoluteLayout>
 </ContentPage>

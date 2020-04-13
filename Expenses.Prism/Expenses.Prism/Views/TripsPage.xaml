@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              x:Class="Expenses.Prism.Views.TripsPage"
              Title="{Binding Title}">
     <StackLayout Padding="5">
@@ -48,5 +49,14 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <busyindicator:SfBusyIndicator AnimationType="Globe" 
+                                           AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                       AbsoluteLayout.LayoutFlags="All"
+                	                       HorizontalOptions="Center"
+                	                       IsVisible="{Binding IsRunning}"
+                	                       Title="Loading"
+                	                       VerticalOptions="Center"
+                	                       ViewBoxWidth="80"
+                	                       ViewBoxHeight="80" />
     </StackLayout>
 </ContentPage>

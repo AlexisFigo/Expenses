@@ -15,6 +15,7 @@ namespace Expenses.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private bool _isEnabled;
+        private bool _isRunning;
         private string _email;
         private DelegateCommand _recoverCommand;
         public RememberPasswordPageViewModel(INavigationService navigationService,IApiService apiService) : base(navigationService)
@@ -26,6 +27,11 @@ namespace Expenses.Prism.ViewModels
         }
         public DelegateCommand RecoverCommand => _recoverCommand ?? (_recoverCommand = new DelegateCommand(RecoverPasswordAsync));
 
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -47,7 +53,7 @@ namespace Expenses.Prism.ViewModels
             }
 
             IsEnabled = false;
-
+            IsRunning = true;
             string url = App.Current.Resources["UrlAPI"].ToString();
 
             var request = new RecoverPasswordRequest
@@ -61,10 +67,13 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsEnabled = true;
+                IsRunning = false;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
                 //Password = string.Empty;
                 return;
             }
+            IsEnabled = true;
+            IsRunning = false;
             //mostrar mensaje aca
             await _navigationService.GoBackAsync();
         }

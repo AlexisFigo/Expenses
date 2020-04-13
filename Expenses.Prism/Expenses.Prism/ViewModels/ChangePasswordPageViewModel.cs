@@ -37,7 +37,11 @@ namespace Expenses.Prism.ViewModels
 
         public string PasswordConfirm { get; set; }
 
-
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -51,9 +55,8 @@ namespace Expenses.Prism.ViewModels
             {
                 return;
             }
-
             IsEnabled = false;
-
+            IsRunning = true;
             UserResponse user = JsonConvert.DeserializeObject<UserResponse>(Settings.User);
             string token = Settings.Token;
 
@@ -68,14 +71,16 @@ namespace Expenses.Prism.ViewModels
             string url = App.Current.Resources["UrlAPI"].ToString();
             Response response = await _apiService.PostAsync(url, "api", "/Account/ChangePassword", request,  token);
 
-            IsEnabled = true;
-
             if (!response.IsSuccess)
             {
+                IsRunning = false;
+                IsEnabled = true;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
+            IsRunning = false;
+            IsEnabled = true;
             //await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
             await _navigationService.GoBackAsync();
         }

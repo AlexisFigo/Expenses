@@ -14,6 +14,7 @@ namespace Expenses.Prism.ViewModels
     {
         private DelegateCommand _add;
         private bool _isEnabled;
+        private bool _isRunning;
 
         private readonly INavigationService _navigationService;
         private IApiService _apiService;
@@ -32,6 +33,11 @@ namespace Expenses.Prism.ViewModels
 
         public string Description { get; set; }
 
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -56,7 +62,7 @@ namespace Expenses.Prism.ViewModels
             //return;
             //}
             IsEnabled = false;
-
+            IsRunning = true;
             CreateTripRequest request = new CreateTripRequest
             {
                 UserId = Settings.Id,
@@ -74,11 +80,12 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsEnabled = true;
+                IsRunning = false;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
                 //Password = string.Empty;
                 return;
             }
-
+            IsRunning = false;
             IsEnabled = true;
         }
     }

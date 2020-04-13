@@ -17,6 +17,7 @@ namespace Expenses.Prism.ViewModels
         private readonly IApiService _apiService;
         private readonly IRegexHelper _regexHelper;
         private bool _isEnabled;
+        private bool _isRunning;
         private DelegateCommand _register;
         private UserRequest _userRequest;
         public RegisterPageViewModel(INavigationService navigationService, IApiService apiService,
@@ -39,6 +40,11 @@ namespace Expenses.Prism.ViewModels
             set => SetProperty(ref _userRequest, value);
         }
 
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -54,7 +60,7 @@ namespace Expenses.Prism.ViewModels
             }
 
             IsEnabled = false;
-
+            IsRunning = true;
             string url = App.Current.Resources["UrlAPI"].ToString();
 
             User.CultureInfo = "es";
@@ -65,11 +71,14 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsEnabled = true;
+                IsRunning = false;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
                 //Password = string.Empty;
                 return;
             }
 
+            IsEnabled = true;
+            IsRunning = false;
             await _navigationService.GoBackAsync();
         }
 

@@ -158,21 +158,23 @@ namespace Expenses.Prism.ViewModels
 
             };
             string token = Settings.Token;
-
+            IsRunning = true;
             Response response = await _apiService.PostAsync(url, "api", "/Trip/AddDetails", reques,token);
 
             if (!response.IsSuccess)
             {
+                IsRunning = false;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
-
+            IsRunning = false;
             //await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
             await _navigationService.GoBackAsync();
         }
 
         private async void LoadExpensesTypeAsync()
         {
+            IsRunning = true;
             string url = App.Current.Resources["UrlAPI"].ToString();
             //bool connection = await _apiService.CheckConnectionAsync(url);
             //if (!connection)
@@ -184,12 +186,14 @@ namespace Expenses.Prism.ViewModels
 
             if (!response.IsSuccess)
             {
+                IsRunning = false;
                 //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
             List<ExpensesTypeResponse> list = (List<ExpensesTypeResponse>)response.Result;
             ExpensesTypes = new ObservableCollection<ExpensesTypeResponse>(list.OrderBy(t => t.Name));
+            IsRunning = false;
         }
     }
 }

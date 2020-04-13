@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              x:Class="Expenses.Prism.Views.RegisterPage">
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -71,5 +72,14 @@
                         Text="Register"/>
             </StackLayout>
         </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="Globe" 
+                                           AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                       AbsoluteLayout.LayoutFlags="All"
+                	                       HorizontalOptions="Center"
+                	                       IsVisible="{Binding IsRunning}"
+                	                       Title="Loading"
+                	                       VerticalOptions="Center"
+                	                       ViewBoxWidth="80"
+                	                       ViewBoxHeight="80" />
     </AbsoluteLayout>
 </ContentPage>
