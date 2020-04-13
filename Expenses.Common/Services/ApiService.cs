@@ -190,5 +190,51 @@ namespace Expenses.Common.Services
                 };
             }
         }
+
+        public async Task<Response> PutAsync(string urlBase, string servicePrefix, string controller, object request, string token)
+        {
+            try
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase),
+                };
+
+                var url = $"{servicePrefix}{controller}";
+
+                string rq = JsonConvert.SerializeObject(request);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                StringContent content = new StringContent(rq, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PutAsync(url, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+                else
+                {
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = result,
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 }
