@@ -7,6 +7,14 @@
         <x:String x:Key="UrlAPI">
             https://expenseswebalexis.azurewebsites.net/</x:String>
         <!-- Application resource dictionary -->
-
-	</Application.Resources>
+        
+        <!-- Colors -->
+        <Color x:Key="ColorBackgroud">#BFBFBF</Color>
+        <Color x:Key="ColorPrimary">#0D0D0D</Color>
+        <Color x:Key="ColorSecondary">#404040</Color>
+        <Color x:Key="ColorDanger">#404040</Color>
+        <Color x:Key="ColorAccent">#737373</Color>
+        <Color x:Key="ColorFont">#F2F2F2</Color>
+        <Color x:Key="ColorFontInverse">#FFFFFF</Color>
+    </Application.Resources>
 </prism:PrismApplication>

@@ -5,6 +5,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Expenses.Prism.Views.LoginPage"
+             BackgroundColor="{StaticResource ColorBackgroud}"
              Title= "{Binding Title}" >
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -46,12 +47,18 @@
                 </Label>
             </StackLayout>
             <StackLayout>
-                <Button Command="{Binding LoginCommand}" 
-                        IsEnabled="{Binding IsEnabled}"
-                        Text="Login"/>
-                <Button Command="{Binding RegisterCommand}" 
-                        IsEnabled="{Binding IsEnabled}"
-                        Text="Register"/>
+                <Button 
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    TextColor="{StaticResource ColorFont}"
+                    Command="{Binding LoginCommand}" 
+                    IsEnabled="{Binding IsEnabled}"
+                    Text="Login"/>
+                <Button 
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    TextColor="{StaticResource ColorFont}"
+                    Command="{Binding RegisterCommand}" 
+                    IsEnabled="{Binding IsEnabled}"
+                    Text="Register"/>
             </StackLayout>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Globe" 
@@ -60,6 +67,8 @@
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
                 	                       Title="Loading"
+                                           TextColor="Black"
+                                           BackgroundColor="White"
                 	                       VerticalOptions="Center"
                 	                       ViewBoxWidth="80"
                 	                       ViewBoxHeight="80" />

@@ -7,6 +7,7 @@
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Expenses.Prism.Views.AddTripDetailsPage"
+             BackgroundColor="{StaticResource ColorBackgroud}"
              Title="{Binding Title}">
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -62,6 +63,8 @@
             </StackLayout>
             <StackLayout>
                 <Button 
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    TextColor="{StaticResource ColorFont}"
                     Command="{Binding AddDetailCommand}" 
                     IsEnabled="{Binding IsEnabled}"
                     Text="Add Detail"
@@ -74,6 +77,8 @@
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
                 	                       Title="Loading"
+                                           TextColor="Black"
+                                           BackgroundColor="White"
                 	                       VerticalOptions="Center"
                 	                       ViewBoxWidth="80"
                 	                       ViewBoxHeight="80" />

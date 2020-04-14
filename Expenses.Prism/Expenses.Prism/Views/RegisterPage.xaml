@@ -4,7 +4,9 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
-             x:Class="Expenses.Prism.Views.RegisterPage">
+             x:Class="Expenses.Prism.Views.RegisterPage"
+             BackgroundColor="{StaticResource ColorBackgroud}"
+             Title="{Binding Title}">
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All" 
@@ -67,7 +69,9 @@
                 </Grid>
             </StackLayout>
             <StackLayout>
-                <Button Command="{Binding RegisterCommand}" 
+                <Button BackgroundColor="{StaticResource ColorPrimary}"
+                        TextColor="{StaticResource ColorFont}"
+                        Command="{Binding RegisterCommand}" 
                         IsEnabled="{Binding IsEnabled}"
                         Text="Register"/>
             </StackLayout>
@@ -78,6 +82,8 @@
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
                 	                       Title="Loading"
+                                           TextColor="Black"
+                                           BackgroundColor="White"
                 	                       VerticalOptions="Center"
                 	                       ViewBoxWidth="80"
                 	                       ViewBoxHeight="80" />

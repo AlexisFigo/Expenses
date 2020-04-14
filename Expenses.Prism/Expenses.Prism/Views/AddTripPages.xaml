@@ -6,6 +6,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
              x:Class="Expenses.Prism.Views.AddTripPages"
+             BackgroundColor="{StaticResource ColorBackgroud}"
              Title="{Binding Title}">
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -19,6 +20,7 @@
                     </Grid.ColumnDefinitions>
                     <Label     Grid.Row="0"
                                Grid.Column="0"
+                               HorizontalTextAlignment="End"
                                Text="City"
                                VerticalOptions="Center"/>
                     <Picker Grid.Row="0"
@@ -58,6 +60,8 @@
             </StackLayout>
             <StackLayout>
                 <Button 
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    TextColor="{StaticResource ColorFont}"
                     Command="{Binding AddCommand}" 
                     IsEnabled="{Binding IsEnabled}"
                     Text="Add trip"
@@ -70,6 +74,8 @@
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
                 	                       Title="Loading"
+                                           TextColor="Black"
+                                           BackgroundColor="White"
                 	                       VerticalOptions="Center"
                 	                       ViewBoxWidth="80"
                 	                       ViewBoxHeight="80" />

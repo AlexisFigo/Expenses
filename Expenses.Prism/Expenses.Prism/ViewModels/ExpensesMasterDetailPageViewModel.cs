@@ -27,31 +27,31 @@ namespace Expenses.Prism.ViewModels
             {
                 new Menu
                 {
-                    //Icon = "tournament",
+                    Icon = "ic_user",
                     PageName = "ProfilePage",
                     Title = "Modify profile"
                 },
                 new Menu
                 {
-                    //Icon = "tournament",
+                    Icon = "ic_password",
                     PageName = "ChangePasswordPage",
                     Title = "Change password"
                 },
                 new Menu
                 {
-                    //Icon = "prediction",
+                    Icon = "ic_trip",
                     PageName = "TripsPage",
                     Title = "Trips"
                 },
                 new Menu
                 {
-                    //Icon = "medal",
+                    Icon = "ic_detail",
                     PageName = "AddTripPages",
                     Title = "Add trip"
                 },
                 new Menu
                 {
-                    //Icon = "user",
+                    Icon = "ic_logout",
                     PageName = "logoutPages",
                     Title = "Logout"
                 }
