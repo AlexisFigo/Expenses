@@ -6,6 +6,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
          	 prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Expenses.Prism.Views.TripDetailsPages"
+             xmlns:i18n="clr-namespace:Expenses.Prism.Helpers"
              BackgroundColor="{StaticResource ColorBackgroud}"
              Title="{Binding Title}">
     <StackLayout Padding="5">
@@ -56,13 +57,13 @@
             BackgroundColor="{StaticResource ColorPrimary}"
             TextColor="{StaticResource ColorFont}"
             Command="{Binding AddDetailCommand}"
-            Text="Add detail"/>
+            Text="{i18n:Translate AddDetail}"/>
         <busyindicator:SfBusyIndicator AnimationType="Globe" 
                                            AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
                 	                       AbsoluteLayout.LayoutFlags="All"
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
-                	                       Title="Loading"
+                	                       Title="{i18n:Translate Loading}"
                                            TextColor="Black"
                                            BackgroundColor="White"
                 	                       VerticalOptions="Center"

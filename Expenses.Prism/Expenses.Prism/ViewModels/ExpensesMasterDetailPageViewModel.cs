@@ -1,4 +1,5 @@
 ﻿using Expenses.Common.Models;
+using Expenses.Prism.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -29,31 +30,31 @@ namespace Expenses.Prism.ViewModels
                 {
                     Icon = "ic_user",
                     PageName = "ProfilePage",
-                    Title = "Modify profile"
+                    Title = Languages.ModifyUser
                 },
                 new Menu
                 {
                     Icon = "ic_password",
                     PageName = "ChangePasswordPage",
-                    Title = "Change password"
+                    Title = Languages.ChangePassword
                 },
                 new Menu
                 {
                     Icon = "ic_trip",
                     PageName = "TripsPage",
-                    Title = "Trips"
+                    Title = Languages.Trips
                 },
                 new Menu
                 {
                     Icon = "ic_detail",
                     PageName = "AddTripPages",
-                    Title = "Add trip"
+                    Title = Languages.AddTrip
                 },
                 new Menu
                 {
                     Icon = "ic_logout",
                     PageName = "logoutPages",
-                    Title = "Logout"
+                    Title = Languages.Logout
                 }
             };
 

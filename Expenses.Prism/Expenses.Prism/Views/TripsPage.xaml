@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              x:Class="Expenses.Prism.Views.TripsPage"
+             xmlns:i18n="clr-namespace:Expenses.Prism.Helpers"
              BackgroundColor="{StaticResource ColorBackgroud}"
              Title="{Binding Title}">
     <StackLayout Padding="5">
@@ -55,7 +56,7 @@
                 	                       AbsoluteLayout.LayoutFlags="All"
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
-                	                       Title="Loading"
+                	                       Title="{i18n:Translate Loading}"
                                            TextColor="Black"
                                            BackgroundColor="White"
                 	                       VerticalOptions="Center"

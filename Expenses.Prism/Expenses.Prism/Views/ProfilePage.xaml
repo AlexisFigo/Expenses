@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              x:Class="Expenses.Prism.Views.ProfilePage"
+             xmlns:i18n="clr-namespace:Expenses.Prism.Helpers"
              BackgroundColor="{StaticResource ColorBackgroud}"
              Title="{Binding Title}">
     <AbsoluteLayout>
@@ -20,21 +21,21 @@
                     <Label Grid.Column="0" 
                            Grid.Row="0"
                            HorizontalTextAlignment="End"
-                           Text="First Name"
+                           Text="{i18n:Translate FirstName}"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="0"
                            Keyboard="Email"
-                           Placeholder="First Name"
+                           Placeholder="{i18n:Translate FirstNamePlaceHolder}"
                            Text="{Binding User.FirstName}"/>
                     <Label Grid.Column="0" 
                            Grid.Row="1"
                            HorizontalTextAlignment="End"
-                           Text="Las tName"
+                           Text="{i18n:Translate LastName}"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="1"
-                           Placeholder="Last Name"
+                           Placeholder="{i18n:Translate LastNamePlaceHolder}"
                            Text="{Binding User.LastName}"/>
                     
                 </Grid>
@@ -44,8 +45,8 @@
                     BackgroundColor="{StaticResource ColorPrimary}"
                     TextColor="{StaticResource ColorFont}"
                     Command="{Binding ChangeCommand}" 
-                    IsEnabled="{Binding IsEnabled}"
-                    Text="Change"/>
+                    Text="{i18n:Translate Save}"
+                    IsEnabled="{Binding IsEnabled}"/>
             </StackLayout>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Globe" 
@@ -53,7 +54,7 @@
                 	                       AbsoluteLayout.LayoutFlags="All"
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
-                	                       Title="Loading"
+                	                       Title="{i18n:Translate Loading}"
                                            TextColor="Black"
                                            BackgroundColor="White"
                 	                       VerticalOptions="Center"

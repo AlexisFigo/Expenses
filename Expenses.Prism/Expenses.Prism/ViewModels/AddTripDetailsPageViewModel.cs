@@ -1,6 +1,7 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
 using FFImageLoading.Work;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -94,19 +95,19 @@ namespace Expenses.Prism.ViewModels
             await CrossMedia.Current.Initialize();
 
             string source = await Application.Current.MainPage.DisplayActionSheet(
-                "¿Donde quieres tomar la foto",
-                "Cancelar",
+                Languages.PictureSource,
+                Languages.Cancel,
                 null,
-                "Galeria",
-                "Camara");
+                Languages.FromGallery,
+                Languages.FromCamera);
 
-            if (source == "Cancelar")
+            if (source == Languages.Cancel)
             {
                 _file = null;
                 return;
             }
 
-            if (source == "Camara")
+            if (source == Languages.FromCamera)
             {
                 _file = await CrossMedia.Current.TakePhotoAsync(
                     new StoreCameraMediaOptions
@@ -164,11 +165,11 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
             IsRunning = false;
-            //await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
             await _navigationService.GoBackAsync();
         }
 
@@ -187,7 +188,7 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 

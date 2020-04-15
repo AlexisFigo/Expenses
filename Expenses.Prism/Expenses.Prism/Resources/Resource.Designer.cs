@@ -70,6 +70,24 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add detail.
+        /// </summary>
+        internal static string AddDetail {
+            get {
+                return ResourceManager.GetString("AddDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add trip.
+        /// </summary>
+        internal static string AddTrip {
+            get {
+                return ResourceManager.GetString("AddTrip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -84,6 +102,15 @@ namespace Expenses.Prism.Resources {
         internal static string ChangePassword {
             get {
                 return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
             }
         }
         
@@ -133,6 +160,24 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cost.
+        /// </summary>
+        internal static string Cost {
+            get {
+                return ResourceManager.GetString("Cost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter cost.
+        /// </summary>
+        internal static string CostPlaceholder {
+            get {
+                return ResourceManager.GetString("CostPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current password.
         /// </summary>
         internal static string CurrentPassword {
@@ -156,6 +201,42 @@ namespace Expenses.Prism.Resources {
         internal static string CurrentPasswordPlaceHolder {
             get {
                 return ResourceManager.GetString("CurrentPasswordPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter description.
+        /// </summary>
+        internal static string DescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("DescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document.
+        /// </summary>
+        internal static string Document {
+            get {
+                return ResourceManager.GetString("Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter document.
+        /// </summary>
+        internal static string DocumentPlaceholder {
+            get {
+                return ResourceManager.GetString("DocumentPlaceholder", resourceCulture);
             }
         }
         
@@ -187,11 +268,29 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End date.
+        /// </summary>
+        internal static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expenses type.
+        /// </summary>
+        internal static string ExpensesType {
+            get {
+                return ResourceManager.GetString("ExpensesType", resourceCulture);
             }
         }
         
@@ -466,6 +565,15 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recover password.
+        /// </summary>
+        internal static string RecoverPassword {
+            get {
+                return ResourceManager.GetString("RecoverPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         internal static string Register {
@@ -475,11 +583,38 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remember password.
+        /// </summary>
+        internal static string RememberPassword {
+            get {
+                return ResourceManager.GetString("RememberPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save .
         /// </summary>
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        internal static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trips.
+        /// </summary>
+        internal static string Trips {
+            get {
+                return ResourceManager.GetString("Trips", resourceCulture);
             }
         }
         

@@ -1,6 +1,8 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
+using Expenses.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -99,12 +101,14 @@ namespace Expenses.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
-                //Password = string.Empty;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
             IsRunning = false;
             IsEnabled = true;
+
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
+            await _navigationService.NavigateAsync(nameof(TripsPage));
         }
 
         private async void LoadCities()
@@ -129,8 +133,7 @@ namespace Expenses.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
-                //Password = string.Empty;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 

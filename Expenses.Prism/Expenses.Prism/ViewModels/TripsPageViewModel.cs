@@ -1,6 +1,7 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -57,7 +58,7 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
             }
 
             List<TripResponse> tournaments = (List<TripResponse>)response.Result;

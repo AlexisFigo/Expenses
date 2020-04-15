@@ -88,6 +88,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Implementations\Localize.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -202,6 +203,10 @@
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Expenses.Common\Expenses.Common.csproj">
+      <Project>{2D7B62B2-8BAC-47A3-AB51-CEB387B95A9A}</Project>
+      <Name>Expenses.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Expenses.Prism\Expenses.Prism.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
       <Name>Expenses.Prism</Name>

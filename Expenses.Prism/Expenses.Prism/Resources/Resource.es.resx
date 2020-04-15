@@ -264,4 +264,49 @@
   <data name="Open" xml:space="preserve">
     <value>Abrir</value>
   </data>
+  <data name="ExpensesType" xml:space="preserve">
+    <value>Gastos</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="DocumentPlaceholder" xml:space="preserve">
+    <value>Introducir documento</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Fecha de comienzo</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Costo</value>
+  </data>
+  <data name="CostPlaceholder" xml:space="preserve">
+    <value>Introducir costo</value>
+  </data>
+  <data name="AddDetail" xml:space="preserve">
+    <value>Añadir Detalle</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="DescriptionPlaceholder" xml:space="preserve">
+    <value>Escriba una descripción</value>
+  </data>
+  <data name="RememberPassword" xml:space="preserve">
+    <value>Recordar contraseña</value>
+  </data>
+  <data name="RecoverPassword" xml:space="preserve">
+    <value>Recuperar contraseña</value>
+  </data>
+  <data name="AddTrip" xml:space="preserve">
+    <value>Agregar viaje</value>
+  </data>
+  <data name="Trips" xml:space="preserve">
+    <value>Viajes</value>
+  </data>
 </root>

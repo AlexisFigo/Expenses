@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:i18n="clr-namespace:Expenses.Prism.Helpers"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -35,7 +36,7 @@
                     </Grid.ColumnDefinitions>
                     <Label     Grid.Row="0"
                                Grid.Column="0"
-                               Text="Expenses type"
+                               Text="{i18n:Translate ExpensesType}"
                                VerticalOptions="Center"/>
                     <Picker Grid.Row="0"
                                 Grid.Column="1"
@@ -46,7 +47,7 @@
                     <Label Grid.Column="0" 
                            Grid.Row="1"
                            HorizontalTextAlignment="End"
-                           Text="Start date"
+                           Text="{i18n:Translate StartDate}"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
                                 Grid.Row="1"
@@ -54,10 +55,11 @@
                     <Label Grid.Column="0" 
                            Grid.Row="2"
                            HorizontalTextAlignment="End"
-                           Text="Cost"
+                           Text="{i18n:Translate Cost}"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1" 
                                 Grid.Row="2"  
+                                Placeholder="{i18n:Translate CostPlaceholder}"
                                 Text="{Binding Detail.Cost}"/>
                 </Grid>
             </StackLayout>
@@ -67,7 +69,7 @@
                     TextColor="{StaticResource ColorFont}"
                     Command="{Binding AddDetailCommand}" 
                     IsEnabled="{Binding IsEnabled}"
-                    Text="Add Detail"
+                    Text="{i18n:Translate AddDetail}"
                         />
             </StackLayout>
         </StackLayout>
@@ -76,8 +78,8 @@
                 	                       AbsoluteLayout.LayoutFlags="All"
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
-                	                       Title="Loading"
                                            TextColor="Black"
+                                           Title="{i18n:Translate Loading}"
                                            BackgroundColor="White"
                 	                       VerticalOptions="Center"
                 	                       ViewBoxWidth="80"

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:i18n="clr-namespace:Expenses.Prism.Helpers"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
@@ -21,7 +22,7 @@
                     <Label     Grid.Row="0"
                                Grid.Column="0"
                                HorizontalTextAlignment="End"
-                               Text="City"
+                               Text="{i18n:Translate City}"
                                VerticalOptions="Center"/>
                     <Picker Grid.Row="0"
                                 Grid.Column="1"
@@ -32,7 +33,7 @@
                     <Label Grid.Column="0" 
                            Grid.Row="1"
                            HorizontalTextAlignment="End"
-                           Text="Start date"
+                           Text="{i18n:Translate StartDate}"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
                                 Grid.Row="1"
@@ -40,7 +41,7 @@
                     <Label Grid.Column="0" 
                            Grid.Row="2"
                            HorizontalTextAlignment="End"
-                           Text="End date"
+                           Text="{i18n:Translate EndDate}"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1" 
                                 Grid.Row="2"  
@@ -48,12 +49,12 @@
                     <Label Grid.Column="0" 
                            Grid.Row="3"
                            HorizontalTextAlignment="End"
-                           Text="Description"
+                           Text="{i18n:Translate Description}"
                            VerticalOptions="Center"/>
                     <Editor
                         Grid.Column="1"
                         Grid.Row="3"
-                        Placeholder="Description"
+                        Placeholder="{i18n:Translate DescriptionPlaceholder}"
                         Text="{Binding Description}"
                         />
                 </Grid>
@@ -64,7 +65,7 @@
                     TextColor="{StaticResource ColorFont}"
                     Command="{Binding AddCommand}" 
                     IsEnabled="{Binding IsEnabled}"
-                    Text="Add trip"
+                    Text="{i18n:Translate AddTrip}"
                         />
             </StackLayout>
         </StackLayout>
@@ -73,7 +74,7 @@
                 	                       AbsoluteLayout.LayoutFlags="All"
                 	                       HorizontalOptions="Center"
                 	                       IsVisible="{Binding IsRunning}"
-                	                       Title="Loading"
+                	                       Title="{i18n:Translate Loading}"
                                            TextColor="Black"
                                            BackgroundColor="White"
                 	                       VerticalOptions="Center"

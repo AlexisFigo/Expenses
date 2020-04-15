@@ -1,6 +1,8 @@
 ﻿using Expenses.Common.Helpers;
+using Expenses.Common.Interfaces;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
 using Expenses.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
@@ -9,6 +11,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace Expenses.Prism.ViewModels
 {
@@ -66,13 +69,13 @@ namespace Expenses.Prism.ViewModels
             
             if (string.IsNullOrEmpty(Email))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
                 return;
             }
 
@@ -102,8 +105,8 @@ namespace Expenses.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsEnabled = true;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
-                //Password = string.Empty;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
+                Password = string.Empty;
                 return;
             }
             UserResponse user = (UserResponse)response.Result;

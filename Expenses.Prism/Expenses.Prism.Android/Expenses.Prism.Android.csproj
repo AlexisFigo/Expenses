@@ -80,6 +80,7 @@
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\Localize.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +108,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Expenses.Common\Expenses.Common.csproj">
+      <Project>{2D7B62B2-8BAC-47A3-AB51-CEB387B95A9A}</Project>
+      <Name>Expenses.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Expenses.Prism\Expenses.Prism.csproj">
       <Project>{434050D2-3344-438C-AAA1-9FEDB2D5FA7C}</Project>
       <Name>Expenses.Prism</Name>

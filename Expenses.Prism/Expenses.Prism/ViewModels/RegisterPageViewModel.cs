@@ -1,6 +1,7 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -72,13 +73,13 @@ namespace Expenses.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
-                //Password = string.Empty;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
             IsEnabled = true;
             IsRunning = false;
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
             await _navigationService.GoBackAsync();
         }
 
@@ -87,38 +88,38 @@ namespace Expenses.Prism.ViewModels
            
             if (string.IsNullOrEmpty(User.FirstName))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.FirstNameError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.FirstNameError, Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(User.LastName))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LastNameError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LastNameError, Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(User.Email) || !_regexHelper.IsValidEmail(User.Email))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
                 return false;
             }
 
 
             if (string.IsNullOrEmpty(User.Password) || User.Password?.Length < 6)
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(User.PasswordConfirm))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordConfirmError1, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordConfirmError1, Languages.Accept);
                 return false;
             }
 
             if (User.Password != User.PasswordConfirm)
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordConfirmError2, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordConfirmError2, Languages.Accept);
                 return false;
             }
 

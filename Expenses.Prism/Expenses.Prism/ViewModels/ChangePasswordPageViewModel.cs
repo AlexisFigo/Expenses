@@ -1,6 +1,7 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -75,13 +76,13 @@ namespace Expenses.Prism.ViewModels
             {
                 IsRunning = false;
                 IsEnabled = true;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
             IsRunning = false;
             IsEnabled = true;
-            //await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
             await _navigationService.GoBackAsync();
         }
 
@@ -89,25 +90,25 @@ namespace Expenses.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(CurrentPassword))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CurrentPasswordError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CurrentPasswordError, Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(NewPassword) || NewPassword?.Length < 6)
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.NewPasswordError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.NewPasswordError, Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(PasswordConfirm))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConfirmNewPasswordError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConfirmNewPasswordError, Languages.Accept);
                 return false;
             }
 
             if (NewPassword != PasswordConfirm)
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConfirmNewPasswordError2, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConfirmNewPasswordError2, Languages.Accept);
                 return false;
             }
 

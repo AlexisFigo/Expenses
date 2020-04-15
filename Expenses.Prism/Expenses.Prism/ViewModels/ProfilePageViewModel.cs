@@ -1,6 +1,7 @@
 ﻿using Expenses.Common.Helpers;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
+using Expenses.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -66,12 +67,12 @@ namespace Expenses.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
-                //Password = string.Empty;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
                 return;
             }
             IsEnabled = true;
             IsRunning = false;
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, Languages.LoginError, Languages.Accept);
             await _navigationService.GoBackAsync();
         }
 
