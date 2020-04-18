@@ -232,11 +232,20 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter document.
+        ///   Looks up a localized string similar to You must enter a document..
         /// </summary>
-        internal static string DocumentPlaceholder {
+        internal static string DocumentError {
             get {
-                return ResourceManager.GetString("DocumentPlaceholder", resourceCulture);
+                return ResourceManager.GetString("DocumentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your document number....
+        /// </summary>
+        internal static string DocumentPlaceHolder {
+            get {
+                return ResourceManager.GetString("DocumentPlaceHolder", resourceCulture);
             }
         }
         

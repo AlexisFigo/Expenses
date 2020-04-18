@@ -7,6 +7,8 @@ namespace Expenses.Common.Models
     {
         public string Id { get; set; }
 
+        public string Document { get; set; }
+
         public string Email { get; set; }
 
         public string FirstName { get; set; }

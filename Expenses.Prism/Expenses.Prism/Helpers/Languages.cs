@@ -137,17 +137,29 @@ namespace Expenses.Prism.Helpers
         public static string Login => Resource.Login;
 
         public static string ExpensesType => Resource.ExpensesType;
+
         public static string Document => Resource.Document;
 
-        public static string DocumentPlaceholder => Resource.DocumentPlaceholder;
+        public static string DocumentPlaceholder => Resource.DocumentPlaceHolder;
+
+        public static string DocumenError => Resource.DocumentError;
+
         public static string StartDate => Resource.StartDate;
+
         public static string Cost => Resource.Cost;
+
         public static string CostPlaceholder => Resource.CostPlaceholder;
+
         public static string AddDetail => Resource.AddDetail;
+
         public static string City => Resource.City;
+
         public static string EnnDate => Resource.EndDate;
+
         public static string Description => Resource.Description;
+
         public static string DescriptionPlaceholder => Resource.DescriptionPlaceholder;
+
         public static string RememberPassword => Resource.RememberPassword;
 
         public static string RecoverPassword => Resource.RecoverPassword;
@@ -155,5 +167,8 @@ namespace Expenses.Prism.Helpers
         public static string AddTrip => Resource.AddTrip;
 
         public static string Trips => Resource.Trips;
+
+
+
     }
 }

@@ -48,6 +48,7 @@ namespace Expenses.Web.Helpers
             return new UserResponse()
             {
                 Id = userEntity.Id,
+                Document = userEntity.Document,
                 Email = userEntity.Email,
                 FirstName = userEntity.FirstName,
                 LastName = userEntity.LastName,

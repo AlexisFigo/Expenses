@@ -26,10 +26,10 @@ namespace Expenses.Web.Data
             await CheckRolesAsync();
             await CheckExpensesTypeAsync();
             await CheckCountriesAsync();
-            await CheckUserAsync("Alexis", "Correa", "figo1813@gmail.com", UserType.Admin);
-            await CheckUserAsync("Alexis", "Correa", "alexisfigo18@hotmail.com", UserType.User);
-            await CheckUserAsync("Alexis", "Correa", "alexis.correa.cano@outlook.com", UserType.User);
-            await CheckUserAsync("Alexis", "Correa", "alexiscorrea231191@correo.itm.edu.co", UserType.User);
+            await CheckUserAsync("Alexis", "Correa", "figo1813@gmail.com","32418498",UserType.Admin);
+            await CheckUserAsync("Alexis", "Correa", "alexisfigo18@hotmail.com", "102454935", UserType.User);
+            await CheckUserAsync("Alexis", "Correa", "alexis.correa.cano@outlook.com","15741616", UserType.User);
+            await CheckUserAsync("Alexis", "Correa", "alexiscorrea231191@correo.itm.edu.co","5612255231",UserType.User);
             await CheckTripsAsync();
         }
 
@@ -123,7 +123,7 @@ namespace Expenses.Web.Data
             });
         }
 
-        private async Task CheckUserAsync(string name, string lastName, string email, UserType userType)
+        private async Task CheckUserAsync(string name, string lastName, string email,string document, UserType userType)
         {
             UserEntity user = await _userHelper.GetUserByEmailAsync(email);
             if (user == null)
@@ -131,6 +131,7 @@ namespace Expenses.Web.Data
                 user = new UserEntity
                 {
                     FirstName = name,
+                    Document = document,
                     LastName = lastName,
                     Email = email,
                     UserName = email,

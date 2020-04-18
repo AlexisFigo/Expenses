@@ -120,6 +120,7 @@ namespace Expenses.Web.Controllers.Api
             user = new UserEntity
             {
                 Email = request.Email,
+                Document = request.Document,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.Email,
@@ -176,6 +177,7 @@ namespace Expenses.Web.Controllers.Api
 
             userEntity.FirstName = request.FirstName;
             userEntity.LastName = request.LastName;
+            userEntity.Document = request.Document;
 
             IdentityResult respose = await _userHelper.UpdateUserAsync(userEntity);
             if (!respose.Succeeded)

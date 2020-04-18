@@ -97,6 +97,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="DocumentPlaceHolder" xml:space="preserve">
+    <value>Enter your document number...</value>
+  </data>
+  <data name="DocumentError" xml:space="preserve">
+    <value>You must enter a document.</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Accept</value>
   </data>
@@ -246,12 +255,6 @@
   </data>
   <data name="ExpensesType" xml:space="preserve">
     <value>Expenses type</value>
-  </data>
-  <data name="Document" xml:space="preserve">
-    <value>Document</value>
-  </data>
-  <data name="DocumentPlaceholder" xml:space="preserve">
-    <value>Enter document</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start date</value>

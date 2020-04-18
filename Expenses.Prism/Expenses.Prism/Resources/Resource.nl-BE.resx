@@ -309,4 +309,13 @@
   <data name="Trips" xml:space="preserve">
     <value>Trips</value>
   </data>
+  <data name="DocumentPlaceHolder" xml:space="preserve">
+    <value>Voer uw documentnummer in ...!</value>
+  </data>
+  <data name="DocumentError" xml:space="preserve">
+    <value>U moet een document invoeren.!</value>
+  </data>
+  <data name="" xml:space="preserve">
+    <value>Document</value>
+  </data>
 </root>
