@@ -11956,10 +11956,13 @@ namespace Expenses.Prism.Droid
 			public const int notify_panel_notification_icon_bg = 2131165535;
 			
 			// aapt resource value: 0x7F070160
-			public const int tooltip_frame_dark = 2131165536;
+			public const int splash = 2131165536;
 			
 			// aapt resource value: 0x7F070161
-			public const int tooltip_frame_light = 2131165537;
+			public const int tooltip_frame_dark = 2131165537;
+			
+			// aapt resource value: 0x7F070162
+			public const int tooltip_frame_light = 2131165538;
 			
 			static Drawable()
 			{

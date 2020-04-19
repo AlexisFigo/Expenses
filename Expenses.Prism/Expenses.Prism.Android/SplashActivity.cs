@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace Expenses.Prism.Droid
 {
@@ -22,7 +14,7 @@ namespace Expenses.Prism.Droid
         {
             base.OnCreate(savedInstanceState);
 
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(10);
             StartActivity(typeof(MainActivity));
         }
     }
