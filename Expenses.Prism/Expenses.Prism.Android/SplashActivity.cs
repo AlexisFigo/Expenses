@@ -22,7 +22,7 @@ namespace Expenses.Prism.Droid
         {
             base.OnCreate(savedInstanceState);
 
-            System.Threading.Thread.Sleep(1);
+            System.Threading.Thread.Sleep(3000);
             StartActivity(typeof(MainActivity));
         }
     }

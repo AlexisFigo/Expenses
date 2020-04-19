@@ -110,8 +110,8 @@ namespace Expenses.Prism.ViewModels
                 return;
             }
             UserResponse user = (UserResponse)response.Result;
-            //UserResponse user = JsonConvert.DeserializeObject<UserResponse>(response.Result.ToString());
-            
+
+            Languages.SetCulture(int.Parse(user.Document.Substring(user.Document.Length - 1)));
             Settings.User = JsonConvert.SerializeObject(user);
             Settings.Token = user.Token;
             Settings.Id = user.Id;

@@ -9,10 +9,8 @@ namespace Expenses.Prism.Helpers
     {
         static Languages()
         {
-            System.Globalization.CultureInfo ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
-            Resource.Culture = ci;
-            Culture = ci.ToString();
-            DependencyService.Get<ILocalize>().SetLocale(ci);
+           
+            
         }
 
         public static void SetCulture(int num)
@@ -44,6 +42,8 @@ namespace Expenses.Prism.Helpers
                     ci = new System.Globalization.CultureInfo("en-US");
                     break;
             }
+            Resource.Culture = ci;
+            DependencyService.Get<ILocalize>().SetLocale(ci);
         }
 
         public static string Culture { get; set; }
