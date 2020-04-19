@@ -115,6 +115,15 @@ namespace Expenses.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User or password incorrect..
+        /// </summary>
+        public static string LoginError {
+            get {
+                return ResourceManager.GetString("LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {

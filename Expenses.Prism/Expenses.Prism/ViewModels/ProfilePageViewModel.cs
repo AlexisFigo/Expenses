@@ -89,16 +89,21 @@ namespace Expenses.Prism.ViewModels
 
         private async Task<bool> ValidateDataAsync()
         {
+            if (string.IsNullOrEmpty(User.Document))
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DocumenError, Languages.Accept);
+                return false;
+            }
 
             if (string.IsNullOrEmpty(User.FirstName))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.FirstNameError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.FirstNameError, Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(User.LastName))
             {
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LastNameError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LastNameError, Languages.Accept);
                 return false;
             }
 

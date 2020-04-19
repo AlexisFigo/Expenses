@@ -165,4 +165,7 @@
   <data name="UserExists" xml:space="preserve">
     <value>Utente già esistente.</value>
   </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Nome utente e/o password errati!</value>
+  </data>
 </root>

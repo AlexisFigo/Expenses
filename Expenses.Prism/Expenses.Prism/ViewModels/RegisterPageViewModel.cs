@@ -87,7 +87,7 @@ namespace Expenses.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(User.Document))
             {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DocumentError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DocumenError, Languages.Accept);
                 return false;
             }
 

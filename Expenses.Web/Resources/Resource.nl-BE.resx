@@ -165,4 +165,7 @@
   <data name="UserExists" xml:space="preserve">
     <value>De gebruiker bestaat al.</value>
   </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Gebruiker of wachtwoord onjuist.!</value>
+  </data>
 </root>

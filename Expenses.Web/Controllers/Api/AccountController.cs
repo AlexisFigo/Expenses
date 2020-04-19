@@ -49,7 +49,12 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
@@ -66,7 +71,7 @@ namespace Expenses.Web.Controllers.Api
                     {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                };
+                     };
 
                     SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
                     SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -83,9 +88,17 @@ namespace Expenses.Web.Controllers.Api
 
                     return Accepted(response);
                 }
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = Resource.LoginError
+                });
             }
 
-            return BadRequest();
+            return BadRequest(new Response { 
+                IsSuccess =false,
+                Message = Resource.UserDoesntExists
+            });
         }
 
         [HttpPost]
@@ -130,7 +143,11 @@ namespace Expenses.Web.Controllers.Api
             IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
             if (result != IdentityResult.Success)
             {
-                return BadRequest(result.Errors.FirstOrDefault().Description);
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
             }
 
             UserEntity userNew = await _userHelper.GetUserAsync(request.Email);
@@ -162,7 +179,12 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
             }
 
             CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
@@ -171,7 +193,12 @@ namespace Expenses.Web.Controllers.Api
             UserEntity userEntity = await _userHelper.GetUserAsync(request.Email);
             if (userEntity == null)
             {
-                return BadRequest(Resource.UserDoesntExists);
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = Resource.UserDoesntExists
+                });
             }
 
 
@@ -182,14 +209,14 @@ namespace Expenses.Web.Controllers.Api
             IdentityResult respose = await _userHelper.UpdateUserAsync(userEntity);
             if (!respose.Succeeded)
             {
-                return BadRequest(respose.Errors.FirstOrDefault().Description);
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = respose.Errors.FirstOrDefault().Description
+                });
             }
 
-            return Ok(new Response
-            {
-                IsSuccess = true,
-                Message = Resource.RecoverPasswordMessage
-            }); ;
+            return Ok(); 
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
