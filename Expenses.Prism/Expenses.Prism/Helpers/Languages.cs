@@ -169,6 +169,6 @@ namespace Expenses.Prism.Helpers
         public static string Trips => Resource.Trips;
 
 
-
+        public static string DescriptionError => Resource.DescriptionError;
     }
 }

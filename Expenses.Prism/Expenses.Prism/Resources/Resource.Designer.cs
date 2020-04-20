@@ -214,6 +214,15 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to you must enter a description.
+        /// </summary>
+        internal static string DescriptionError {
+            get {
+                return ResourceManager.GetString("DescriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter description.
         /// </summary>
         internal static string DescriptionPlaceholder {

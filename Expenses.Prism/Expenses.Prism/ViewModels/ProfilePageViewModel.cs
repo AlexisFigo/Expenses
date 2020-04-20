@@ -54,9 +54,18 @@ namespace Expenses.Prism.ViewModels
                 return;
             }
 
-            IsEnabled = false;
             IsRunning = true;
+            IsEnabled = false;
+
             string url = App.Current.Resources["UrlAPI"].ToString();
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
 
             User.CultureInfo = "es";
             string token = Settings.Token;

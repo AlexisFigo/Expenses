@@ -292,4 +292,7 @@
   <data name="Trips" xml:space="preserve">
     <value>Trips</value>
   </data>
+  <data name="DescriptionError" xml:space="preserve">
+    <value>you must enter a description</value>
+  </data>
 </root>

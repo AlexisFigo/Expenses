@@ -136,12 +136,12 @@ namespace Expenses.Prism.ViewModels
         private async void AddDetailAsync()
         {
             string url = App.Current.Resources["UrlAPI"].ToString();
-            //bool connection = await _apiService.CheckConnectionAsync(url);
-            //if (!connection)
-            //{
-            //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-            //return;
-            //}
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
             byte[] imageArray = null;
             if (_file != null)
             {
@@ -177,12 +177,12 @@ namespace Expenses.Prism.ViewModels
         {
             IsRunning = true;
             string url = App.Current.Resources["UrlAPI"].ToString();
-            //bool connection = await _apiService.CheckConnectionAsync(url);
-            //if (!connection)
-            //{
-            //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-            //return;
-            //}
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
             Response response = await _apiService.GetComboBox<ExpensesTypeResponse>(url, "api", "/Trip/GetExpenesesType");
 
             if (!response.IsSuccess)

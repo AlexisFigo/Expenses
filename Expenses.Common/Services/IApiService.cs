@@ -14,5 +14,7 @@ namespace Expenses.Common.Services
         Task<Response> GetTrips<T>(string urlBase, string servicePrefix, string controller, TripRequest request,string token);
 
         Task<Response> Login(string urlBase, string servicePrefix, string controller, LoginRequest request);
+
+        Task<bool> CheckConnectionAsync(string url);
     }
 }

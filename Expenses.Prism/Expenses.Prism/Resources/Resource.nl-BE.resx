@@ -315,7 +315,10 @@
   <data name="DocumentError" xml:space="preserve">
     <value>U moet een document invoeren.!</value>
   </data>
-  <data name="" xml:space="preserve">
+  <data name="_Empty[1]" xml:space="preserve">
     <value>Document</value>
+  </data>
+  <data name="DescriptionError" xml:space="preserve">
+    <value>u moet een beschrijving invoeren!</value>
   </data>
 </root>

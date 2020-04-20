@@ -1,5 +1,6 @@
 ﻿using Expenses.Common.Models;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -52,6 +53,16 @@ namespace Expenses.Common.Services
                     Message = ex.Message
                 };
             }
+        }
+
+        public async Task<bool> CheckConnectionAsync(string url)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return false;
+            }
+
+            return await CrossConnectivity.Current.IsRemoteReachable(url);
         }
 
         public async Task<Response> GetTrips<T>(

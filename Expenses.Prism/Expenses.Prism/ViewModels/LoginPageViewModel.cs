@@ -83,14 +83,14 @@ namespace Expenses.Prism.ViewModels
             IsEnabled = false;
 
             string url = App.Current.Resources["UrlAPI"].ToString();
-            //bool connection = await _apiService.CheckConnectionAsync(url);
-            //if (!connection)
-            //{
-                //IsRunning = true;
-                //IsEnabled = false;
-                //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-                //return;
-            //}
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
 
             LoginRequest request = new LoginRequest
             {

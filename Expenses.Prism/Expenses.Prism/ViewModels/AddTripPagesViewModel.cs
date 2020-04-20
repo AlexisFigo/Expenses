@@ -68,19 +68,18 @@ namespace Expenses.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(Description))
             {
-                //mostrar mensaje de error
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DescriptionError, Languages.Accept);
                 return;
             }
 
             string url = App.Current.Resources["UrlAPI"].ToString();
-            //bool connection = await _apiService.CheckConnectionAsync(url);
-            //if (!connection)
-            //{
-            //IsRunning = true;
-            //IsEnabled = false;
-            //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-            //return;
-            //}
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
             IsEnabled = false;
             IsRunning = true;
             CreateTripRequest request = new CreateTripRequest
@@ -114,14 +113,12 @@ namespace Expenses.Prism.ViewModels
         private async void LoadCities()
         {
             string url = App.Current.Resources["UrlAPI"].ToString();
-            //bool connection = await _apiService.CheckConnectionAsync(url);
-            //if (!connection)
-            //{
-            //IsRunning = true;
-            //IsEnabled = false;
-            //await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-            //return;
-            //}
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
             IsEnabled = false;
             IsRunning = true;
 

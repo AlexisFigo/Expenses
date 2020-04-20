@@ -39,8 +39,16 @@ namespace Expenses.Prism.ViewModels
 
         private async void LoadTripsAsync()
         {
-            //todo validar conexion
+            IsRunning = true;
+
             string url = App.Current.Resources["UrlAPI"].ToString();
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
 
             TripRequest request = new TripRequest
             {

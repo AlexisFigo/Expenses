@@ -56,6 +56,14 @@ namespace Expenses.Prism.ViewModels
             {
                 return;
             }
+            string url = App.Current.Resources["UrlAPI"].ToString();
+            bool connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
             IsEnabled = false;
             IsRunning = true;
             UserResponse user = JsonConvert.DeserializeObject<UserResponse>(Settings.User);
@@ -69,7 +77,6 @@ namespace Expenses.Prism.ViewModels
                 CultureInfo = "es"
             };
 
-            string url = App.Current.Resources["UrlAPI"].ToString();
             Response response = await _apiService.PostAsync(url, "api", "/Account/ChangePassword", request,  token);
 
             if (!response.IsSuccess)
