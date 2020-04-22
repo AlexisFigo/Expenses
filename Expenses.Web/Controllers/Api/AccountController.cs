@@ -1,12 +1,15 @@
-﻿using Expenses.Common.Models;
+﻿using Expenses.Common.Enums;
+using Expenses.Common.Models;
 using Expenses.Web.Data;
 using Expenses.Web.Data.Entities;
 using Expenses.Web.Helpers;
+using Expenses.Web.Resources;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Expenses.Common.Enums;
 using System;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,9 +17,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Expenses.Web.Resources;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Expenses.Web.Controllers.Api
 {
@@ -49,12 +49,8 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
@@ -81,24 +77,19 @@ namespace Expenses.Web.Controllers.Api
                         claims,
                         expires: DateTime.UtcNow.AddDays(15),
                         signingCredentials: credentials);
-                  
-                    var response = _converterHelper.ToUserResponse(user,
+
+                    UserResponse response = _converterHelper.ToUserResponse(user,
                         new JwtSecurityTokenHandler().WriteToken(token),
                         token.ValidTo);
 
                     return Accepted(response);
                 }
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.LoginError
-                });
+                return BadRequest(Resource.LoginError
+                );
             }
 
-            return BadRequest(new Response { 
-                IsSuccess =false,
-                Message = Resource.UserDoesntExists
-            });
+            return BadRequest(Resource.UserDoesntExists
+            );
         }
 
         [HttpPost]
@@ -107,12 +98,8 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
@@ -121,11 +108,8 @@ namespace Expenses.Web.Controllers.Api
             UserEntity user = await _userHelper.GetUserAsync(request.Email);
             if (user != null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.UserAlreadyExists
-                });
+                return BadRequest(Resource.UserAlreadyExists
+                );
             }
 
 
@@ -143,11 +127,8 @@ namespace Expenses.Web.Controllers.Api
             IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
             if (result != IdentityResult.Success)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = result.Errors.FirstOrDefault().Description
-                });
+                return BadRequest(result.Errors.FirstOrDefault().Description
+                );
             }
 
             UserEntity userNew = await _userHelper.GetUserAsync(request.Email);
@@ -163,13 +144,10 @@ namespace Expenses.Web.Controllers.Api
             _mailHelper.SendMail(request.Email, Resource.ConfirmEmail, $"<h1>{Resource.ConfirmEmail}</h1>" +
                 $"{Resource.ConfirmEmailSubject}</br></br><a href = \"{tokenLink}\">{Resource.ConfirmEmail}</a>");
 
-        
 
-            return Ok(new Response
-            {
-                IsSuccess = true,
-                Message = Resource.ConfirmEmailMessage
-            });
+
+            return Ok(Resource.ConfirmEmailMessage
+            );
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -179,12 +157,8 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
@@ -193,12 +167,8 @@ namespace Expenses.Web.Controllers.Api
             UserEntity userEntity = await _userHelper.GetUserAsync(request.Email);
             if (userEntity == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = Resource.UserDoesntExists
-                });
+                return BadRequest(Resource.UserDoesntExists
+                );
             }
 
 
@@ -209,14 +179,11 @@ namespace Expenses.Web.Controllers.Api
             IdentityResult respose = await _userHelper.UpdateUserAsync(userEntity);
             if (!respose.Succeeded)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = respose.Errors.FirstOrDefault().Description
-                });
+                return BadRequest(respose.Errors.FirstOrDefault().Description
+                );
             }
 
-            return Ok(); 
+            return Ok(Resource.UserUpdated);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -226,12 +193,8 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
@@ -240,29 +203,19 @@ namespace Expenses.Web.Controllers.Api
             UserEntity user = await _userHelper.GetUserAsync(request.Email);
             if (user == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.UserDoesntExists
-                });
+                return BadRequest(Resource.UserDoesntExists
+                );
             }
 
             IdentityResult result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
             if (!result.Succeeded)
             {
                 string message = result.Errors.FirstOrDefault().Description;
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message =message.Contains("password") ? Resource.IncorrectCurrentPassword : message
-                });
+                return BadRequest(message.Contains("password") ? Resource.IncorrectCurrentPassword : message
+                );
             }
 
-            return Ok(new Response
-            {
-                IsSuccess = true,
-                Message = Resource.PasswordChangedSuccess
-            });
+            return Ok(Resource.PasswordChangedSuccess);
         }
 
 
@@ -272,11 +225,8 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request"
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
@@ -285,11 +235,8 @@ namespace Expenses.Web.Controllers.Api
             UserEntity user = await _userHelper.GetUserAsync(request.Email);
             if (user == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.UserDoesntExists
-                });
+                return BadRequest(Resource.UserDoesntExists
+                );
             }
 
             string myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
@@ -298,13 +245,10 @@ namespace Expenses.Web.Controllers.Api
               $"{Resource.RecoverPasswordSubject}:</br></br>" +
             $"<a href = \"{link}\">{Resource.RecoverPassword}</a>");
 
-            
 
-            return Ok(new Response
-            {
-                IsSuccess = true,
-                Message = Resource.RecoverPasswordMessage
-            });
+
+            return Ok(Resource.RecoverPasswordMessage
+            );
         }
 
     }

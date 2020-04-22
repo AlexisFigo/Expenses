@@ -3,16 +3,15 @@ using Expenses.Common.Models;
 using Expenses.Web.Data;
 using Expenses.Web.Data.Entities;
 using Expenses.Web.Helpers;
+using Expenses.Web.Resources;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Expenses.Common.Models;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Expenses.Web.Resources;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Expenses.Web.Controllers.Api
 {
@@ -43,12 +42,8 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
@@ -71,29 +66,21 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
             Resource.Culture = cultureInfo;
 
-            var user = await _userHelper.GetUserAsync(new System.Guid(modelRequest.UserId));
+            UserEntity user = await _userHelper.GetUserAsync(new System.Guid(modelRequest.UserId));
             if (user == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.UserDoesntExists,
-                    Result = ModelState
-                });
+                return BadRequest(Resource.UserDoesntExists
+                );
             }
 
-            var tripEntity = new TripsEntity()
+            TripsEntity tripEntity = new TripsEntity()
             {
                 StartDate = modelRequest.StartDate,
                 EndDate = modelRequest.EndDate,
@@ -105,7 +92,7 @@ namespace Expenses.Web.Controllers.Api
             _dataContext.Trips.Add(tripEntity);
 
             await _dataContext.SaveChangesAsync();
-            return NoContent();
+            return Ok(Resource.TripCreated);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -115,26 +102,18 @@ namespace Expenses.Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
             CultureInfo cultureInfo = new CultureInfo(modelRequest.CultureInfo);
             Resource.Culture = cultureInfo;
 
-            var trip = await _dataContext.Trips.FindAsync(int.Parse(modelRequest.TripId));
+            TripsEntity trip = await _dataContext.Trips.FindAsync(int.Parse(modelRequest.TripId));
             if (trip == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.TripIdIncorrect,
-                    Result = ModelState
-                });
+                return BadRequest(Resource.TripIdIncorrect
+                );
             }
 
             string picturePath = string.Empty;
@@ -144,7 +123,7 @@ namespace Expenses.Web.Controllers.Api
                 picturePath = _imageHelper.UploadImage(modelRequest.VoucherPath, "Vouchers");
             }
 
-            var tripDetail = new TripDetailsEntity()
+            TripDetailsEntity tripDetail = new TripDetailsEntity()
             {
                 ExpensesType = await _dataContext.ExpensesTypes.FindAsync(int.Parse(modelRequest.ExpensesTypeId)),
                 Date = modelRequest.Date,
@@ -156,29 +135,25 @@ namespace Expenses.Web.Controllers.Api
             _dataContext.TripDetails.Add(tripDetail);
 
             await _dataContext.SaveChangesAsync();
-            return NoContent();
+            return Ok(Resource.DetailAdded);
         }
 
         [HttpGet]
         [Route("GetExpenesesType")]
-        public  async Task<IActionResult> GetExpenesesType()
+        public async Task<IActionResult> GetExpenesesType()
         {
-            var expenses = _dataContext.ExpensesTypes.AsEnumerable();
+            IEnumerable<ExpensesTypeEntity> expenses = _dataContext.ExpensesTypes.AsEnumerable();
             if (expenses == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.TripIdIncorrect,
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
-            var tripDetail = expenses.Select(e => new ExpensesTypeResponse
+            IEnumerable<ExpensesTypeResponse> tripDetail = expenses.Select(e => new ExpensesTypeResponse
             {
                 Id = e.Id,
                 Name = e.Name
-            }) ;
+            });
 
             return Ok(tripDetail);
         }
@@ -188,23 +163,19 @@ namespace Expenses.Web.Controllers.Api
         public async Task<IActionResult> GetCountries()
         {
 
-            var countries =  await _dataContext.Countries.Include(c => c.Cities).ToListAsync();
+            List<CountriesEntity> countries = await _dataContext.Countries.Include(c => c.Cities).ToListAsync();
             if (countries == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = Resource.TripIdIncorrect,
-                    Result = ModelState
-                });
+                return BadRequest(ModelState
+                );
             }
 
-            var contriesResponse = countries.Select(c => new CounrtriesResponse
+            IEnumerable<CounrtriesResponse> contriesResponse = countries.Select(c => new CounrtriesResponse
             {
                 Id = c.Id,
                 Name = c.Name,
-                Cities = c.Cities.Select(ci => new CityResponse 
-                { 
+                Cities = c.Cities.Select(ci => new CityResponse
+                {
                     Id = ci.Id,
                     Name = ci.Name
                 }).ToList()

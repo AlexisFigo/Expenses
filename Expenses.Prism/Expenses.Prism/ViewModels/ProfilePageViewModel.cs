@@ -2,6 +2,7 @@
 using Expenses.Common.Models;
 using Expenses.Common.Services;
 using Expenses.Prism.Helpers;
+using Expenses.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -19,7 +20,7 @@ namespace Expenses.Prism.ViewModels
         private UserRequest _user;
         public ProfilePageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
-            Title = "Modify profile";
+            Title = Languages.ModifyUser;
             _apiService = apiService;
             _navigationService = navigationService;
             IsEnabled = true;
@@ -67,7 +68,7 @@ namespace Expenses.Prism.ViewModels
                 return;
             }
 
-            User.CultureInfo = "es";
+            User.CultureInfo = Languages.Culture;
             string token = Settings.Token;
 
             Response response = await _apiService.PutAsync(url, "api", "/Account/EditUser", User, token);
@@ -82,7 +83,7 @@ namespace Expenses.Prism.ViewModels
             IsEnabled = true;
             IsRunning = false;
             await App.Current.MainPage.DisplayAlert(Languages.Ok, Languages.LoginError, Languages.Accept);
-            await _navigationService.GoBackAsync();
+            await _navigationService.NavigateAsync(nameof(TripsPage));
         }
 
         private void LoadUser()
@@ -90,6 +91,7 @@ namespace Expenses.Prism.ViewModels
             UserResponse user = JsonConvert.DeserializeObject<UserResponse>(Settings.User);
             User = new UserRequest
             {
+                Document = user.Document,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName

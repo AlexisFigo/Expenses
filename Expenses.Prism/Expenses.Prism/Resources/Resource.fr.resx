@@ -321,4 +321,19 @@
   <data name="DescriptionError" xml:space="preserve">
     <value>Vous devez entrer une description</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails &gt;&gt;</value>
+  </data>
+  <data name="CostError" xml:space="preserve">
+    <value>Vous devez entrer le coût!</value>
+  </data>
+  <data name="DateError" xml:space="preserve">
+    <value>Vous devez entrer une date !</value>
+  </data>
+  <data name="FileError" xml:space="preserve">
+    <value>Vous devez entrer une photo!</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
 </root>

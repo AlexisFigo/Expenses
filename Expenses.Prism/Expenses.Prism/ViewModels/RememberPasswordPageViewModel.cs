@@ -23,7 +23,7 @@ namespace Expenses.Prism.ViewModels
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Remember password";
+            Title = Languages.RememberPassword;
             IsEnabled = true;
         }
         public DelegateCommand RecoverCommand => _recoverCommand ?? (_recoverCommand = new DelegateCommand(RecoverPasswordAsync));
@@ -68,7 +68,7 @@ namespace Expenses.Prism.ViewModels
             var request = new RecoverPasswordRequest
             {
                 Email = this.Email,
-                CultureInfo = "es"
+                CultureInfo = Languages.Culture
             };
             string token = Settings.Token;
             Response response = await _apiService.PostAsync(url, "api", "/Account/RecoverPassword", request,token);

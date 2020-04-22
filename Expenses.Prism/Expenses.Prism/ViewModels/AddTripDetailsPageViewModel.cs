@@ -2,16 +2,15 @@
 using Expenses.Common.Models;
 using Expenses.Common.Services;
 using Expenses.Prism.Helpers;
-using FFImageLoading.Work;
+using Expenses.Prism.Views;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Expenses.Prism.ViewModels
@@ -32,14 +31,14 @@ namespace Expenses.Prism.ViewModels
         private ObservableCollection<ExpensesTypeResponse> _expensesTypes;
         private DelegateCommand _changeImageCommand;
         private DelegateCommand _addDetailCommand;
-        public AddTripDetailsPageViewModel(INavigationService navigationService, 
+        public AddTripDetailsPageViewModel(INavigationService navigationService,
             IApiService apiService,
             IFilesHelper filesHelper) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
             _filesHelper = filesHelper;
-            Title = "Add detail";
+            Title = Languages.AddDetail;
             IsEnabled = true;
             Detail = new AddDetailsRequest();
             LoadExpensesTypeAsync();
@@ -60,7 +59,7 @@ namespace Expenses.Prism.ViewModels
             set => SetProperty(ref _image, value);
         }
 
-        public ExpensesTypeResponse ExpensesType 
+        public ExpensesTypeResponse ExpensesType
         {
             get => _expensesType;
             set => SetProperty(ref _expensesType, value);
@@ -143,34 +142,61 @@ namespace Expenses.Prism.ViewModels
                 return;
             }
             byte[] imageArray = null;
-            if (_file != null)
+            bool val= await ValidateRegistry();
+            if (val)
             {
-                imageArray = _filesHelper.ReadFully(_file.GetStream());
-            }
+                if (_file != null)
+                {
+                    imageArray = _filesHelper.ReadFully(_file.GetStream());
+                }
 
-            var reques = new AddDetailsRequest
-            {
-                ExpensesTypeId  = ExpensesType.Id.ToString(),
-                Date = Detail.Date,
-                Cost = Detail.Cost,
-                VoucherPath = imageArray,
-                TripId = _tripId,
-                CultureInfo = "es"
+                AddDetailsRequest reques = new AddDetailsRequest
+                {
+                    ExpensesTypeId = ExpensesType.Id.ToString(),
+                    Date = Detail.Date,
+                    Cost = Detail.Cost,
+                    VoucherPath = imageArray,
+                    TripId = _tripId,
+                    CultureInfo = Languages.Culture
 
-            };
-            string token = Settings.Token;
-            IsRunning = true;
-            Response response = await _apiService.PostAsync(url, "api", "/Trip/AddDetails", reques,token);
+                };
+                string token = Settings.Token;
+                IsRunning = true;
+                Response response = await _apiService.PostAsync(url, "api", "/Trip/AddDetails", reques, token);
 
-            if (!response.IsSuccess)
-            {
+                if (!response.IsSuccess)
+                {
+                    IsRunning = false;
+                    await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                    return;
+                }
                 IsRunning = false;
-                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
-                return;
+                await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
+                await _navigationService.NavigateAsync(nameof(TripsPage));
             }
-            IsRunning = false;
-            await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
-            await _navigationService.GoBackAsync();
+            
+        }
+
+        private async Task<bool> ValidateRegistry()
+        {
+            if (string.IsNullOrEmpty(Detail.Cost.ToString()))
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CostError, Languages.Accept);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Detail.Date.ToString()))
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DateError, Languages.Accept);
+                return false;
+            }
+
+            if (_file == null)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.FileError, Languages.Accept);
+                return false;
+            }
+            return true;
         }
 
         private async void LoadExpensesTypeAsync()

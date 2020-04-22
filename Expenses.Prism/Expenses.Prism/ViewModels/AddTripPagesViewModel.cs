@@ -3,14 +3,11 @@ using Expenses.Common.Models;
 using Expenses.Common.Services;
 using Expenses.Prism.Helpers;
 using Expenses.Prism.Views;
-using Newtonsoft.Json;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Expenses.Prism.ViewModels
 {
@@ -21,13 +18,14 @@ namespace Expenses.Prism.ViewModels
         private bool _isRunning;
 
         private readonly INavigationService _navigationService;
-        private IApiService _apiService;
+        private readonly IApiService _apiService;
         private CityResponse _city;
         private ObservableCollection<CityResponse> _cities;
 
-        public AddTripPagesViewModel(INavigationService navigationService,IApiService apiService) : base(navigationService)
+        public AddTripPagesViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
-            Title = "Add trips";
+            Title = Languages.AddTrip;
+            _navigationService = navigationService;
             _apiService = apiService;
             IsEnabled = true;
             LoadCities();
@@ -89,12 +87,12 @@ namespace Expenses.Prism.ViewModels
                 EndDate = EndDate,
                 CityId = City.Id,
                 Description = Description,
-                CultureInfo = "es"
+                CultureInfo = Languages.Culture
             };
 
             string token = Settings.Token;
 
-            Response response = await _apiService.PostAsync(url, "api", "/Trip/CreateTrip", request,token);
+            Response response = await _apiService.PostAsync(url, "api", "/Trip/CreateTrip", request, token);
 
             if (!response.IsSuccess)
             {
@@ -136,9 +134,9 @@ namespace Expenses.Prism.ViewModels
 
             List<CounrtriesResponse> counrtries = (List<CounrtriesResponse>)response.Result;
             Cities = new ObservableCollection<CityResponse>();
-            foreach (var itm in counrtries)
+            foreach (CounrtriesResponse itm in counrtries)
             {
-                foreach (var itmj in itm.Cities)
+                foreach (CityResponse itmj in itm.Cities)
                 {
                     Cities.Add(itmj);
                 }

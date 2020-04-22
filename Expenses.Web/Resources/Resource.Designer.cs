@@ -212,5 +212,14 @@ namespace Expenses.Web.Resources {
                 return ResourceManager.GetString("UserExists", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user was updated sucessfull.
+        /// </summary>
+        public static string UserUpdated {
+            get {
+                return ResourceManager.GetString("UserUpdated", resourceCulture);
+            }
+        }
     }
 }

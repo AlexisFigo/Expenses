@@ -28,7 +28,7 @@ namespace Expenses.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
             _regexHelper = regexHelper;
-            Title = "Register";
+            Title = Languages.Register;
             User = new UserRequest();
             IsEnabled = true;
         }
@@ -73,7 +73,7 @@ namespace Expenses.Prism.ViewModels
                 return;
             }
 
-            User.CultureInfo = "es";
+            User.CultureInfo = Languages.Culture;
             string token = Settings.Token;
 
             Response response = await _apiService.PostAsync(url, "api", "/Account/CreateUser", User,token);

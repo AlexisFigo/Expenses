@@ -168,4 +168,7 @@
   <data name="LoginError" xml:space="preserve">
     <value>Usuário ou senha incorreta!</value>
   </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>O usuário foi atualizado com sucesso!</value>
+  </data>
 </root>

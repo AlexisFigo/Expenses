@@ -2,13 +2,10 @@
 using Expenses.Common.Models;
 using Expenses.Common.Services;
 using Expenses.Prism.Helpers;
+using Expenses.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Expenses.Prism.ViewModels
@@ -27,7 +24,7 @@ namespace Expenses.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
             IsEnabled = true;
-            Title = "Change password";
+            Title = Languages.ChangePassword;
         }
 
         public DelegateCommand ChangePasswordCommand => _changePasswordCommand ?? (_changePasswordCommand = new DelegateCommand(ChangePasswordAsync));
@@ -51,7 +48,7 @@ namespace Expenses.Prism.ViewModels
 
         private async void ChangePasswordAsync()
         {
-            var isValid = await ValidateDataAsync();
+            bool isValid = await ValidateDataAsync();
             if (!isValid)
             {
                 return;
@@ -74,10 +71,10 @@ namespace Expenses.Prism.ViewModels
                 Email = user.Email,
                 NewPassword = NewPassword,
                 OldPassword = CurrentPassword,
-                CultureInfo = "es"
+                CultureInfo = Languages.Culture
             };
 
-            Response response = await _apiService.PostAsync(url, "api", "/Account/ChangePassword", request,  token);
+            Response response = await _apiService.PostAsync(url, "api", "/Account/ChangePassword", request, token);
 
             if (!response.IsSuccess)
             {
@@ -90,7 +87,7 @@ namespace Expenses.Prism.ViewModels
             IsRunning = false;
             IsEnabled = true;
             await App.Current.MainPage.DisplayAlert(Languages.Ok, response.Message, Languages.Accept);
-            await _navigationService.GoBackAsync();
+            await _navigationService.NavigateAsync(nameof(TripsPage));
         }
 
         private async Task<bool> ValidateDataAsync()

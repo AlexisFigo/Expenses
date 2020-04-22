@@ -1,9 +1,6 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Expenses.Common.Helpers;
+using Expenses.Prism.Views;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Expenses.Prism.ViewModels
 {
@@ -13,6 +10,17 @@ namespace Expenses.Prism.ViewModels
         public logoutPagesViewModel(INavigationService navigationService) : base(navigationService)
         {
             Title = "Logout";
+            _navigationService = navigationService;
+            Logout();
+        }
+
+        private async void Logout()
+        {
+            Settings.User = null;
+            Settings.Token = null;
+            Settings.Id = null;
+            Settings.Document = null;
+            await _navigationService.NavigateAsync(nameof(LoginPage));
         }
     }
 }

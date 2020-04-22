@@ -21,7 +21,7 @@ namespace Expenses.Prism.ViewModels
         {
             _apiService = apiService;
             _navigationService = navigationService;
-            Title = "Trips";
+            Title = Languages.Trips;
             LoadTripsAsync();
         }
 
@@ -53,7 +53,7 @@ namespace Expenses.Prism.ViewModels
             TripRequest request = new TripRequest
             {
                 Id = Settings.Id,
-                CultureInfo = "es"
+                CultureInfo = Languages.Culture
             };
             string token = Settings.Token;
             IsRunning = true;

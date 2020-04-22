@@ -1,17 +1,11 @@
 ﻿using Expenses.Common.Helpers;
-using Expenses.Common.Interfaces;
 using Expenses.Common.Models;
 using Expenses.Common.Services;
 using Expenses.Prism.Helpers;
 using Expenses.Prism.Views;
 using Newtonsoft.Json;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Forms;
 
 namespace Expenses.Prism.ViewModels
 {
@@ -30,7 +24,7 @@ namespace Expenses.Prism.ViewModels
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Login";
+            Title = Languages.Login;
             IsEnabled = true;
         }
 
@@ -66,7 +60,7 @@ namespace Expenses.Prism.ViewModels
 
         private async void LoginAsync()
         {
-            
+
             if (string.IsNullOrEmpty(Email))
             {
                 await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
@@ -97,7 +91,7 @@ namespace Expenses.Prism.ViewModels
                 Password = Password,
                 Username = Email,
                 RememberMe = false,
-                CultureInfo = "es"
+                CultureInfo = Languages.Culture
             };
 
             Response response = await _apiService.Login(url, "api", "/Account/Login", request);
@@ -111,7 +105,7 @@ namespace Expenses.Prism.ViewModels
             }
             UserResponse user = (UserResponse)response.Result;
 
-            Languages.SetCulture(int.Parse(user.Document.Substring(user.Document.Length - 1)));
+            Settings.Document = user.Document;
             Settings.User = JsonConvert.SerializeObject(user);
             Settings.Token = user.Token;
             Settings.Id = user.Id;

@@ -169,6 +169,15 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter the cost.
+        /// </summary>
+        internal static string CostError {
+            get {
+                return ResourceManager.GetString("CostError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter cost.
         /// </summary>
         internal static string CostPlaceholder {
@@ -205,6 +214,15 @@ namespace Expenses.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter the date.
+        /// </summary>
+        internal static string DateError {
+            get {
+                return ResourceManager.GetString("DateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description {
@@ -228,6 +246,15 @@ namespace Expenses.Prism.Resources {
         internal static string DescriptionPlaceholder {
             get {
                 return ResourceManager.GetString("DescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        internal static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -309,6 +336,15 @@ namespace Expenses.Prism.Resources {
         internal static string ExpensesType {
             get {
                 return ResourceManager.GetString("ExpensesType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter a photo.
+        /// </summary>
+        internal static string FileError {
+            get {
+                return ResourceManager.GetString("FileError", resourceCulture);
             }
         }
         
@@ -570,6 +606,15 @@ namespace Expenses.Prism.Resources {
         internal static string PasswordRecover {
             get {
                 return ResourceManager.GetString("PasswordRecover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        internal static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
             }
         }
         

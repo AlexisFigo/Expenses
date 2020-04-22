@@ -7,15 +7,17 @@ namespace Expenses.Prism.Helpers
 
     public static class Languages
     {
+        static  System.Globalization.CultureInfo ci;
         static Languages()
         {
-           
-            
+            var cil = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+            Resource.Culture = cil;
+            Culture = cil.ToString();
+            DependencyService.Get<ILocalize>().SetLocale(cil);
         }
-
+        
         public static void SetCulture(int num)
         {
-            System.Globalization.CultureInfo ci;
             switch (num)
             {
                 case 0:
@@ -168,7 +170,16 @@ namespace Expenses.Prism.Helpers
 
         public static string Trips => Resource.Trips;
 
+        public static string Details => Resource.Details;
 
         public static string DescriptionError => Resource.DescriptionError;
+
+        public static string CostError => Resource.CostError;
+
+        public static string DateError => Resource.DateError;
+
+        public static string FileError => Resource.FileError;
+
+        public static string Photo => Resource.Photo;
     }
 }

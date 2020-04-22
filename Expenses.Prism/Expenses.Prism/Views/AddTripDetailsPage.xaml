@@ -15,20 +15,7 @@
                      AbsoluteLayout.LayoutFlags="All" 
                      Padding="5">
             <StackLayout >
-                <ffimageloading:CachedImage Aspect="AspectFit"
-                                                Source="{Binding Image}" 
-                                                CacheDuration= "50"
-                                                HeightRequest="150"
-                                                Margin="5"
-                                                RetryCount= "3"
-                                                RetryDelay= "600">
-                        <ffimageloading:CachedImage.Transformations>
-                            <fftransformations:CircleTransformation />
-                        </ffimageloading:CachedImage.Transformations>
-                        <ffimageloading:CachedImage.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
-                        </ffimageloading:CachedImage.GestureRecognizers>
-                    </ffimageloading:CachedImage>
+                
                 <Grid Margin="20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -36,29 +23,51 @@
                     </Grid.ColumnDefinitions>
                     <Label     Grid.Row="0"
                                Grid.Column="0"
+                               HorizontalTextAlignment="End"
+                               Text="{i18n:Translate Photo}"
+                               VerticalOptions="Center"/>
+                    <ffimageloading:CachedImage 
+                                                Grid.Row="0"
+                                                Grid.Column="1"                        
+                                                Aspect="AspectFit"
+                                                Source="{Binding Image}" 
+                                                CacheDuration= "50"
+                                                HeightRequest="150"
+                                                Margin="5"
+                                                BackgroundColor="{StaticResource ColorFont}"
+                                                RetryCount= "3"
+                                                RetryDelay= "600">
+                        <ffimageloading:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                    </ffimageloading:CachedImage>
+
+                    <Label     Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalTextAlignment="End"
                                Text="{i18n:Translate ExpensesType}"
                                VerticalOptions="Center"/>
-                    <Picker Grid.Row="0"
+                    <Picker Grid.Row="1"
                                 Grid.Column="1"
                                 ItemDisplayBinding="{Binding Name}"
                                 ItemsSource="{Binding ExpensesTypes}"
                                 SelectedItem="{Binding ExpensesType}"
                                 Title="Expense type"/>
                     <Label Grid.Column="0" 
-                           Grid.Row="1"
+                           Grid.Row="2"
                            HorizontalTextAlignment="End"
                            Text="{i18n:Translate StartDate}"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Date="{Binding Detail.Date}"/>
                     <Label Grid.Column="0" 
-                           Grid.Row="2"
+                           Grid.Row="3"
                            HorizontalTextAlignment="End"
                            Text="{i18n:Translate Cost}"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1" 
-                                Grid.Row="2"  
+                                Grid.Row="3"  
                                 Placeholder="{i18n:Translate CostPlaceholder}"
                                 Text="{Binding Detail.Cost}"/>
                 </Grid>

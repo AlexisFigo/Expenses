@@ -168,4 +168,7 @@
   <data name="LoginError" xml:space="preserve">
     <value>Gebruiker of wachtwoord onjuist.!</value>
   </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>De gebruiker is succesvol bijgewerkt!</value>
+  </data>
 </root>

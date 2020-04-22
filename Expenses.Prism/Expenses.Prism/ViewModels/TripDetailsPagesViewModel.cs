@@ -1,4 +1,5 @@
 ﻿using Expenses.Common.Models;
+using Expenses.Prism.Helpers;
 using Expenses.Prism.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -19,6 +20,7 @@ namespace Expenses.Prism.ViewModels
         public TripDetailsPagesViewModel(INavigationService navigationService):base(navigationService)
         {
             _navigationService = navigationService;
+            Title = Languages.Details;
         }
 
         public DelegateCommand AddDetailCommand => _addDetailCommand ??
